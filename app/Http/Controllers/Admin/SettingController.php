@@ -21,17 +21,34 @@ class SettingController extends Controller
         ]);
 
         foreach ($validated['settings'] as $key => $value) {
-            Setting::where('key', $key)->update(['value' => $value]);
+            $setting = Setting::where('key', $key)->first();
+            if ($setting && $setting->type !== 'image') {
+                $setting->update(['value' => $value]);
+            }
         }
 
-        // Handle file uploads
+        // Handle file uploads - Manual storage (lebih reliable)
         if ($request->hasFile('files')) {
             foreach ($request->file('files') as $key => $file) {
                 $setting = Setting::where('key', $key)->first();
                 if ($setting && $setting->type === 'image') {
-                    $setting->clearMediaCollection('images');
-                    $setting->addMedia($file)->toMediaCollection('images');
-                    $setting->update(['value' => $setting->getFirstMediaUrl('images')]);
+
+                    // Hapus file lama jika ada
+                    if ($setting->value && \Storage::disk('public')->exists(str_replace(asset('storage/'), '', $setting->value))) {
+                        \Storage::disk('public')->delete(str_replace(asset('storage/'), '', $setting->value));
+                    }
+
+                    // Simpan file baru
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $path = $file->storeAs('images', $filename, 'public');
+
+                    // Update setting dengan full URL
+                    $setting->update(['value' => asset('storage/' . $path)]);
+
+                    // Clear spatie media (cleanup)
+                    if ($setting->hasMedia('images')) {
+                        $setting->clearMediaCollection('images');
+                    }
                 }
             }
         }
