@@ -13,7 +13,7 @@ x-init="init()"
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="relative">
             <!-- Main Navbar -->
-            <div class="bg-white/90 backdrop-blur-md border border-white/20 rounded-2xl shadow-lg transition-all duration-300"
+            <div class="bg-white/90 lg:backdrop-blur-md border border-white/20 rounded-2xl shadow-lg transition-all duration-300"
                  :class="scrolled ? 'shadow-xl' : 'shadow-lg'">
                 <div class="flex justify-between items-center px-6 py-4">
                     <!-- Logo -->
@@ -28,7 +28,8 @@ x-init="init()"
                                     <span class="text-white font-bold text-sm">{{ substr(config('app.name'), 0, 1) }}</span>
                                 </div>
                             @endif
-                            <span class="ml-3 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-primary-600">
+                            <!-- App name - hidden on mobile, visible on desktop -->
+                            <span class="hidden lg:block ml-3 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-primary-600">
                                 {{ \App\Models\Setting::get('site_name', config('app.name')) }}
                             </span>
                         </a>
@@ -121,7 +122,7 @@ x-init="init()"
                  x-transition:leave-start="opacity-100 transform scale-100"
                  x-transition:leave-end="opacity-0 transform scale-95"
                  class="lg:hidden absolute top-full left-0 right-0 mt-2">
-                <div class="bg-white/95 backdrop-blur-md border border-white/20 rounded-2xl shadow-xl mx-4">
+                <div class="bg-white/90 lg:backdrop-blur-md border border-white/20 rounded-2xl shadow-xl mx-4">
                     <div class="px-6 py-4 space-y-2">
                         <a href="{{ route('home') }}"
                            class="flex items-center px-4 py-3 text-base font-medium text-gray-700 hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-all duration-300 {{ request()->routeIs('home') ? 'text-primary-600 bg-primary-50' : '' }}"
@@ -193,6 +194,6 @@ x-init="init()"
      x-transition:leave-start="opacity-100"
      x-transition:leave-end="opacity-0"
      @click="open = false"
-     class="lg:hidden fixed inset-0 z-40 bg-black bg-opacity-25 backdrop-blur-sm"
+     class="lg:hidden fixed inset-0 z-40 bg-black/25"
      aria-hidden="true">
 </div>

@@ -14,10 +14,56 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Custom backdrop blur for older browsers */
-.backdrop-blur-md {
+/* Navbar Glass Effect - Default for all devices */
+.navbar-glass {
+    background-color: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+}
+
+.navbar-glass-scrolled {
+    background-color: rgba(255, 255, 255, 0.95);
+}
+
+/* Custom backdrop blur - ONLY for desktop */
+@media (min-width: 1024px) {
+    .backdrop-blur-md {
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+}
+
+/* Mobile: disable backdrop blur and ensure content brightness */
+@media (max-width: 1023px) {
+    /* Disable all backdrop blur effects on mobile */
+    .backdrop-blur-md {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    /* Override navbar glass effect - solid background for mobile */
+    .navbar-glass {
+        background-color: rgba(255, 255, 255, 1) !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .navbar-glass-scrolled {
+        background-color: rgba(255, 255, 255, 1) !important;
+    }
+
+    /* Ensure main content has white background on mobile only */
+    main {
+        position: relative;
+        z-index: 1;
+        background-color: white;
+        min-height: 100vh;
+    }
+
+    /* Ensure navbar doesn't affect content brightness */
+    nav {
+        isolation: isolate;
+    }
 }
 
 /* Custom gradient text */
