@@ -42,7 +42,7 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                         </svg>
-                        View Portfolio
+                        Lihat Portofolio
                     </a>
                 </div>
 
@@ -50,19 +50,19 @@
                 <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 pt-8 border-t border-white/20">
                     <div class="text-center lg:text-left">
                         <div class="text-3xl font-bold text-white">{{ $stats['projects'] }}</div>
-                        <div class="text-blue-200 text-sm">Projects Completed</div>
+                        <div class="text-blue-200 text-sm">Project Selesai</div>
                     </div>
                     <div class="text-center lg:text-left">
                         <div class="text-3xl font-bold text-white">{{ $stats['clients'] }}</div>
-                        <div class="text-blue-200 text-sm">Happy Clients</div>
+                        <div class="text-blue-200 text-sm">Klien yang Bahagia</div>
                     </div>
                     <div class="text-center lg:text-left">
                         <div class="text-3xl font-bold text-white">{{ $stats['experience'] }}</div>
-                        <div class="text-blue-200 text-sm">Years Experience</div>
+                        <div class="text-blue-200 text-sm">Pengalaman Bertahun-tahun</div>
                     </div>
                     <div class="text-center lg:text-left">
                         <div class="text-3xl font-bold text-white">{{ $stats['satisfaction'] }}</div>
-                        <div class="text-blue-200 text-sm">Client Satisfaction</div>
+                        <div class="text-blue-200 text-sm">Kepuasan Klien</div>
                     </div>
                 </div>
             </div>
@@ -121,10 +121,10 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2z"></path>
                 </svg>
-                Our Services
+                Layanan kami
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What We Offer</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">We offer comprehensive digital solutions to help your business grow and succeed in the modern world.</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Apa yang Kami Tawarkan</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Kami menawarkan solusi digital yang komprehensif untuk membantu bisnis Anda tumbuh dan sukses di dunia modern.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -137,10 +137,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
                         </svg>
                     </div>
-                    <h3 class="text-xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition-colors duration-300">Web Development</h3>
-                    <p class="text-gray-600 leading-relaxed">Custom websites built with modern technologies like Laravel, React, and Vue.js. Responsive, fast, and SEO-optimized.</p>
+                    <h3 class="text-xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition-colors duration-300">Website Development</h3>
+                    <p class="text-gray-600 leading-relaxed">Situs website khusus yang dibuat dengan teknologi modern seperti Laravel, React, dan Vue.js. Responsif, cepat, dan dioptimalkan untuk SEO.</p>
                     <div class="mt-6 flex items-center text-primary-600 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        Learn more
+                        Pelajari lebih lanjut
                         <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
@@ -158,9 +158,9 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition-colors duration-300">Mobile App Development</h3>
-                    <p class="text-gray-600 leading-relaxed">Native and cross-platform mobile apps for iOS and Android using React Native and Flutter technologies.</p>
+                    <p class="text-gray-600 leading-relaxed">Aplikasi mobile dan lintas platform untuk iOS dan Android menggunakan teknologi React Native dan Flutter.</p>
                     <div class="mt-6 flex items-center text-primary-600 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        Learn more
+                        Pelajari lebih lanjut
                         <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
@@ -178,9 +178,9 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition-colors duration-300">E-Commerce Solutions</h3>
-                    <p class="text-gray-600 leading-relaxed">Complete online stores with payment integration, inventory management, and customer relationship systems.</p>
+                    <p class="text-gray-600 leading-relaxed">Toko online lengkap dengan integrasi pembayaran, manajemen inventaris, dan sistem hubungan pelanggan.</p>
                     <div class="mt-6 flex items-center text-primary-600 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        Learn more
+                        Pelajari lebih lanjut
                         <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
@@ -198,9 +198,9 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition-colors duration-300">UI/UX Design</h3>
-                    <p class="text-gray-600 leading-relaxed">Modern and intuitive user interfaces focused on user experience and conversion optimization.</p>
+                    <p class="text-gray-600 leading-relaxed">Antarmuka pengguna yang modern dan intuitif yang berfokus pada pengalaman pengguna dan pengoptimalan konversi.</p>
                     <div class="mt-6 flex items-center text-primary-600 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        Learn more
+                        Pelajari lebih lanjut
                         <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
@@ -218,9 +218,9 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition-colors duration-300">Digital Marketing</h3>
-                    <p class="text-gray-600 leading-relaxed">SEO optimization, social media marketing, and digital advertising to reach more customers.</p>
+                    <p class="text-gray-600 leading-relaxed">Optimasi SEO, pemasaran media sosial, dan periklanan digital untuk menjangkau lebih banyak pelanggan.</p>
                     <div class="mt-6 flex items-center text-primary-600 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        Learn more
+                        Pelajari lebih lanjut
                         <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
@@ -239,9 +239,9 @@
                         </svg>
                     </div>
                     <h3 class="text-xl font-bold mb-4 text-gray-900 group-hover:text-primary-600 transition-colors duration-300">Maintenance & Support</h3>
-                    <p class="text-gray-600 leading-relaxed">Ongoing maintenance, updates, and technical support to keep your digital assets running smoothly.</p>
+                    <p class="text-gray-600 leading-relaxed">Pemeliharaan berkelanjutan, pembaruan, dan dukungan teknis untuk menjaga aset digital Anda berjalan lancar.</p>
                     <div class="mt-6 flex items-center text-primary-600 font-medium opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
-                        Learn more
+                        Pelajari lebih lanjut
                         <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
@@ -254,7 +254,7 @@
         <div class="text-center mt-12" data-aos="fade-up">
             <a href="{{ route('services') }}"
                class="inline-flex items-center px-8 py-4 bg-primary-600 text-white rounded-2xl font-semibold hover:bg-primary-700 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-                View All Services
+                Lihat Semua Layanan
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
@@ -315,8 +315,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-semibold text-gray-900 mb-1">Expert Team</h4>
-                            <p class="text-gray-600">Experienced developers and designers who stay current with latest technologies</p>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-1">Tim Ahli</h4>
+                            <p class="text-gray-600">Pengembang dan desainer berpengalaman yang selalu mengikuti perkembangan teknologi terkini</p>
                         </div>
                     </div>
 
@@ -327,8 +327,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-semibold text-gray-900 mb-1">Quality Focused</h4>
-                            <p class="text-gray-600">We deliver high-quality solutions that exceed client expectations</p>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-1">Berfokus pada Kualitas</h4>
+                            <p class="text-gray-600">Kami memberikan solusi berkualitas tinggi yang melampaui harapan klien</p>
                         </div>
                     </div>
 
@@ -339,8 +339,8 @@
                             </svg>
                         </div>
                         <div>
-                            <h4 class="text-lg font-semibold text-gray-900 mb-1">On-Time Delivery</h4>
-                            <p class="text-gray-600">We respect deadlines and deliver projects on schedule</p>
+                            <h4 class="text-lg font-semibold text-gray-900 mb-1">Tepat Waktu</h4>
+                            <p class="text-gray-600">Kami menghormati tenggat waktu dan menyampaikan Project sesuai jadwal</p>
                         </div>
                     </div>
                 </div>
@@ -349,7 +349,7 @@
                 <div class="pt-4">
                     <a href="{{ route('about') }}"
                         class="inline-flex items-center px-6 py-3 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-all duration-300 transform hover:scale-105">
-                        Learn More About Us
+                        Pelajari Lebih Lanjut Tentang Kami
                         <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                         </svg>
@@ -369,10 +369,10 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                 </svg>
-                Featured Projects
+                Project Unggulan
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our Latest Work</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Take a look at some of our recent work and see how we've helped businesses achieve their digital goals.</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Project Terbaru Kami</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Lihatlah beberapa pekerjaan terbaru kami dan lihat bagaimana kami membantu bisnis mencapai tujuan digital mereka.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -395,13 +395,13 @@
                         <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition-all duration-300 flex items-center justify-center">
                             <a href="{{ route('portfolio.detail', $portfolio->slug) }}"
                                 class="bg-white text-primary-600 px-6 py-3 rounded-full font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 hover:bg-primary-600 hover:text-white">
-                                View Project
+                                Lihat Project
                             </a>
                         </div>
 
                         <!-- Featured Badge -->
                         <div class="absolute top-4 left-4">
-                            <span class="bg-yellow-400 text-yellow-900 text-xs px-3 py-1 rounded-full font-semibold">Featured</span>
+                            <span class="bg-yellow-400 text-yellow-900 text-xs px-3 py-1 rounded-full font-semibold">Unggulan</span>
                         </div>
                     </div>
 
@@ -429,7 +429,7 @@
 
                         <a href="{{ route('portfolio.detail', $portfolio->slug) }}"
                             class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors duration-300 group-hover:translate-x-1 transform">
-                            View Details
+                            Lihat Detail
                             <svg class="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                             </svg>
@@ -442,7 +442,7 @@
         <div class="text-center mt-12" data-aos="fade-up">
             <a href="{{ route('portfolio') }}"
                 class="inline-flex items-center px-8 py-4 bg-primary-600 text-white rounded-2xl font-semibold hover:bg-primary-700 transition-all duration-300 transform hover:scale-105 hover:shadow-xl">
-                View All Projects
+                Lihat Semua Project
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                 </svg>
@@ -472,10 +472,10 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
                 </svg>
-                Client Testimonials
+                Testimoni Klien
             </div>
-            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">What Our Clients Say</h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Don't just take our word for it. Here's what some of our satisfied clients have to say about working with us.</p>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Apa Kata Klien Kami</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">Jangan hanya percaya pada apa yang kami katakan. Berikut ini adalah beberapa pernyataan dari klien kami yang merasa puas setelah bekerja sama dengan kami.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -543,17 +543,17 @@
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
-                Ready to get started?
+                Siap untuk memulai?
             </div>
-            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Let's Build Something Amazing Together</h2>
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-6">Mari Kita Bangun Sesuatu yang Menakjubkan Bersama</h2>
             <p class="text-xl md:text-2xl text-blue-100 mb-10 max-w-3xl mx-auto leading-relaxed">
-                Let's discuss your ideas and see how we can help you bring them to life. Get in touch with us today for a free consultation.
+                Mari kita bahas ide-ide Anda dan lihat bagaimana kami dapat membantu Anda mewujudkannya. Hubungi kami hari ini untuk konsultasi gratis.
             </p>
 
             <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <a href="{{ route('contact') }}"
                     class="group relative inline-flex items-center px-8 py-4 bg-white text-primary-600 rounded-2xl font-bold text-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105 hover:shadow-2xl">
-                    Get Free Consultation
+                    Dapatkan Konsultasi Gratis
                     <svg class="w-5 h-5 ml-2 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                     </svg>
@@ -564,7 +564,7 @@
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                     </svg>
-                    View Our Work
+                    Lihat Pekerjaan Kami
                 </a>
             </div>
 
