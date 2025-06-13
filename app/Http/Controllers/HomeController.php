@@ -40,11 +40,7 @@ class HomeController extends Controller
 
     public function services(): View
     {
-        $page = Page::where('slug', 'services')
-            ->active()
-            ->firstOrFail();
-
-        return view('pages.services', compact('page'));
+        return app(ServiceController::class)->index();
     }
 
     public function portfolio(): View
