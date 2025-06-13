@@ -5,15 +5,15 @@
 
 @section('content')
 @include('partials.home.hero', ['heroContent' => $heroContent, 'stats' => $stats])
-@include('partials.home.services-section')
-@include('partials.home.about-section', ['aboutContent' => $aboutContent, 'stats' => $stats])
+@include('partials.home.services')
+@include('partials.home.about', ['aboutContent' => $aboutContent, 'stats' => $stats])
 
 @if($featuredPortfolios->count() > 0)
-    @include('partials.home.portfolio-section', ['portfolios' => $featuredPortfolios])
+    @include('partials.home.portfolio', ['portfolios' => $featuredPortfolios])
 @endif
 
 @if($testimonials->count() > 0)
-    @include('partials.home.testimonials-section', ['testimonials' => $testimonials])
+    @include('partials.home.testimonials', ['testimonials' => $testimonials])
 @endif
 
 @include('partials.shared.cta-section')
