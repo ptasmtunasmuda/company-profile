@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\CachedSettingService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -24,53 +25,39 @@ class Setting extends Model implements HasMedia
         $this->addMediaCollection('images')
             ->singleFile()
             ->acceptsMimeTypes(['image/jpeg', 'image/png', 'image/webp', 'image/svg+xml'])
-            ->useDisk('public'); // Pastikan menggunakan disk public
+            ->useDisk('public');
     }
 
     public function registerMediaConversions(Media $media = null): void
     {
-        // Optional: Buat thumbnail jika diperlukan
-        // $this->addMediaConversion('thumb')
-        //     ->width(150)
-        //     ->height(150)
-        //     ->sharpen(10);
+        $this->addMediaConversion('thumb')
+            ->width(150)
+            ->height(150)
+            ->sharpen(10);
     }
 
+    /**
+     * @deprecated Use CachedSettingService instead
+     */
     public static function get($key, $default = null)
     {
-        $setting = self::where('key', $key)->first();
-
-        if (!$setting) {
-            return $default;
-        }
-
-        // Jika type adalah image
-        if ($setting->type === 'image') {
-            // Prioritas 1: Cek value manual storage
-            if ($setting->value) {
-                // Jika sudah full URL, return as is
-                if (str_starts_with($setting->value, 'http')) {
-                    return $setting->value;
-                }
-                // Jika relative path, convert ke full URL
-                return asset($setting->value);
-            }
-
-            // Prioritas 2: Fallback ke media library
-            if ($setting->hasMedia('images')) {
-                return $setting->getFirstMediaUrl('images');
-            }
-        }
-
-        return $setting->value ?? $default;
+        // Untuk backward compatibility, delegate ke CachedSettingService
+        $cachedService = app(CachedSettingService::class);
+        return $cachedService->get($key, $default);
     }
 
     public static function set($key, $value, $type = 'text', $group = 'general')
     {
-        return self::updateOrCreate(
+        $setting = self::updateOrCreate(
             ['key' => $key],
             ['value' => $value, 'type' => $type, 'group' => $group]
         );
+
+        // Clear cache setelah update
+        $cachedService = app(CachedSettingService::class);
+        $cachedService->refresh();
+
+        return $setting;
     }
 
     public function scopeByGroup($query, $group)
@@ -78,13 +65,40 @@ class Setting extends Model implements HasMedia
         return $query->where('group', $group);
     }
 
-    // Method tambahan untuk mendapatkan URL gambar
+    public function scopeByType($query, $type)
+    {
+        return $query->where('type', $type);
+    }
+
     public function getImageUrl()
     {
-        if ($this->type === 'image' && $this->hasMedia('images')) {
-            return $this->getFirstMediaUrl('images');
+        if ($this->type === 'image') {
+            if ($this->value) {
+                if (str_starts_with($this->value, 'http')) {
+                    return $this->value;
+                }
+                return asset($this->value);
+            }
+
+            if ($this->hasMedia('images')) {
+                return $this->getFirstMediaUrl('images');
+            }
         }
 
         return $this->value;
+    }
+
+    // Boot method untuk clear cache saat setting berubah
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saved(function () {
+            app(CachedSettingService::class)->refresh();
+        });
+
+        static::deleted(function () {
+            app(CachedSettingService::class)->refresh();
+        });
     }
 }

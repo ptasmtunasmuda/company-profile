@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\HasActiveScope;
+use App\Traits\HasOrderScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
@@ -10,7 +12,10 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Testimonial extends Model implements HasMedia
 {
-    use HasFactory, InteractsWithMedia;
+    use HasFactory,
+        InteractsWithMedia,
+        HasActiveScope,
+        HasOrderScope;
 
     protected $fillable = [
         'client_name',
@@ -41,15 +46,5 @@ class Testimonial extends Model implements HasMedia
             ->height(100)
             ->crop('crop-center')
             ->sharpen(10);
-    }
-
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc');
     }
 }

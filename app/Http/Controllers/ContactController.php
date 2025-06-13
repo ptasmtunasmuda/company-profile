@@ -2,23 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contact;
-use Illuminate\Http\Request;
+use App\Actions\Contact\StoreContactAction;
+use App\DataTransferObjects\ContactData;
+use App\Http\Requests\StoreContactRequest;
+use Illuminate\Http\RedirectResponse;
 
 class ContactController extends Controller
 {
-    public function store(Request $request)
+    public function __construct(
+        private StoreContactAction $storeContactAction
+    ) {}
+
+    public function store(StoreContactRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
-            'phone' => 'nullable|string|max:20',
-            'subject' => 'required|string|max:255',
-            'message' => 'required|string|max:2000',
-        ]);
+        try {
+            $contactData = ContactData::fromRequest($request->validated());
+            $this->storeContactAction->execute($contactData);
 
-        Contact::create($validated);
-
-        return back()->with('success', 'Thank you for your message! We will get back to you soon.');
+            return back()->with('success', 'Thank you for your message! We will get back to you soon.');
+        } catch (\Exception $e) {
+            report($e);
+            return back()
+                ->with('error', 'Something went wrong. Please try again.')
+                ->withInput();
+        }
     }
 }

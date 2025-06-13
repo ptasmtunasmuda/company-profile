@@ -2,48 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Portfolio;
-use App\Models\Testimonial;
-use App\Models\Setting;
 use App\Models\Page;
+use App\Services\PortfolioService;
+use App\Services\SettingService;
+use App\Services\TestimonialService;
+use Illuminate\View\View;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function __construct(
+        private PortfolioService $portfolioService,
+        private TestimonialService $testimonialService,
+        private SettingService $settingService
+    ) {}
+
+    public function index(): View
     {
-        $featuredPortfolios = Portfolio::active()
-            ->featured()
-            ->ordered()
-            ->take(6)
-            ->get();
-
-        $testimonials = Testimonial::active()
-            ->ordered()
-            ->take(6)
-            ->get();
-
-        // Get hero content from settings
-        $heroContent = [
-            'title' => Setting::get('hero_title', 'Build Your Digital Future With Us'),
-            'subtitle' => Setting::get('hero_subtitle', 'We create modern websites and mobile applications.'),
-            'cta_text' => Setting::get('hero_cta_text', 'Get Free Consultation'),
-            'cta_link' => Setting::get('hero_cta_link', '#contact'),
-        ];
-
-        // Get about content
-        $aboutContent = [
-            'title' => Setting::get('about_title', 'About Our Company'),
-            'subtitle' => Setting::get('about_subtitle', 'Your Trusted Technology Partner'),
-            'description' => Setting::get('about_description'),
-        ];
-
-        // Get statistics
-        $stats = [
-            'projects' => Setting::get('stat_projects', '100+'),
-            'clients' => Setting::get('stat_clients', '50+'),
-            'experience' => Setting::get('stat_experience', '5+'),
-            'satisfaction' => Setting::get('stat_satisfaction', '99%'),
-        ];
+        $featuredPortfolios = $this->portfolioService->getFeaturedPortfolios(6);
+        $testimonials = $this->testimonialService->getActiveTestimonials(6);
+        $heroContent = $this->settingService->getHeroContent();
+        $aboutContent = $this->settingService->getAboutContent();
+        $stats = $this->settingService->getStats();
 
         return view('home', compact(
             'featuredPortfolios',
@@ -54,57 +33,45 @@ class HomeController extends Controller
         ));
     }
 
-    public function about()
+    public function about(): View
     {
-        $page = Page::where('slug', 'about-us')->firstOrFail();
-        return view('pages.about', compact('page'));
+        return app(AboutController::class)->index();
     }
 
-    public function services()
+    public function services(): View
     {
-        $page = Page::where('slug', 'services')->firstOrFail();
+        $page = Page::where('slug', 'services')
+            ->active()
+            ->firstOrFail();
+
         return view('pages.services', compact('page'));
     }
 
-    public function portfolio()
+    public function portfolio(): View
     {
-        $portfolios = Portfolio::active()
-            ->ordered()
-            ->paginate(12);
-
-        $featuredPortfolios = Portfolio::active()
-            ->featured()
-            ->ordered()
-            ->take(3)
-            ->get();
+        $portfolios = $this->portfolioService->getActivePortfolios(12);
+        $featuredPortfolios = $this->portfolioService->getFeaturedPortfolios(3);
 
         return view('pages.portfolio', compact('portfolios', 'featuredPortfolios'));
     }
 
-    public function portfolioDetail($slug)
+    public function portfolioDetail(string $slug): View
     {
-        $portfolio = Portfolio::where('slug', $slug)
-            ->where('is_active', true)
-            ->firstOrFail();
-
-        $relatedPortfolios = Portfolio::active()
-            ->where('id', '!=', $portfolio->id)
-            ->ordered()
-            ->take(3)
-            ->get();
+        $portfolio = $this->portfolioService->getPortfolioBySlug($slug);
+        $relatedPortfolios = $this->portfolioService->getRelatedPortfolios($portfolio->id, 3);
 
         return view('pages.portfolio-detail', compact('portfolio', 'relatedPortfolios'));
     }
 
-    public function contact()
+    public function contact(): View
     {
         return view('pages.contact');
     }
 
-    public function page($slug)
+    public function page(string $slug): View
     {
         $page = Page::where('slug', $slug)
-            ->where('is_active', true)
+            ->active()
             ->firstOrFail();
 
         return view('pages.show', compact('page'));

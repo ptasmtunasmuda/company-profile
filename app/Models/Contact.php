@@ -34,7 +34,7 @@ class Contact extends Model
         return $query->where('is_read', true);
     }
 
-    public function markAsRead()
+    public function markAsRead(): void
     {
         $this->update([
             'is_read' => true,

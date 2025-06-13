@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\HasActiveScope;
+use App\Traits\HasFeaturedScope;
+use App\Traits\HasOrderScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
@@ -11,7 +14,12 @@ use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class Portfolio extends Model implements HasMedia
 {
-    use HasFactory, Sluggable, InteractsWithMedia;
+    use HasFactory,
+        Sluggable,
+        InteractsWithMedia,
+        HasActiveScope,
+        HasFeaturedScope,
+        HasOrderScope;
 
     protected $fillable = [
         'title',
@@ -64,21 +72,5 @@ class Portfolio extends Model implements HasMedia
             ->width(1200)
             ->height(800)
             ->sharpen(10);
-    }
-
-    // Scopes
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
-
-    public function scopeFeatured($query)
-    {
-        return $query->where('is_featured', true);
-    }
-
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('sort_order', 'asc')->orderBy('created_at', 'desc');
     }
 }
