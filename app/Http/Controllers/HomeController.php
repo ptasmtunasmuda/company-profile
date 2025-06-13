@@ -45,10 +45,7 @@ class HomeController extends Controller
 
     public function portfolio(): View
     {
-        $portfolios = $this->portfolioService->getActivePortfolios(12);
-        $featuredPortfolios = $this->portfolioService->getFeaturedPortfolios(3);
-
-        return view('pages.portfolio', compact('portfolios', 'featuredPortfolios'));
+        return app(PortfolioController::class)->index();
     }
 
     public function portfolioDetail(string $slug): View
