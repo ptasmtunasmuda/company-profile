@@ -6,7 +6,9 @@ function openImageModal(imageUrl, title) {
     modalImage.src = imageUrl;
     modalImage.alt = title;
 
+    // Remove hidden class and add flex
     modal.classList.remove('hidden');
+    modal.classList.add('flex');
     document.body.style.overflow = 'hidden';
 
     // Animate modal entrance
@@ -22,6 +24,7 @@ function closeImageModal() {
 
     setTimeout(() => {
         modal.classList.add('hidden');
+        modal.classList.remove('flex');
         document.body.style.overflow = 'auto';
     }, 300);
 }
