@@ -50,10 +50,7 @@ class HomeController extends Controller
 
     public function portfolioDetail(string $slug): View
     {
-        $portfolio = $this->portfolioService->getPortfolioBySlug($slug);
-        $relatedPortfolios = $this->portfolioService->getRelatedPortfolios($portfolio->id, 3);
-
-        return view('pages.portfolio-detail', compact('portfolio', 'relatedPortfolios'));
+        return app(PortfolioController::class)->show($slug);
     }
 
     public function contact(): View
