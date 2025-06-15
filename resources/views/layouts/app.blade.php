@@ -2,7 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <!-- FIXED: Gunakan satu viewport meta tag yang optimal -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
@@ -83,14 +84,12 @@
     <link rel="preload" href="https://unpkg.com/aos@2.3.1/dist/aos.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css"></noscript>
 
-    <!-- Additional responsive meta tags -->
+    <!-- PWA and mobile app meta tags -->
     <meta name="theme-color" content="#ffffff">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- FIXED: Gunakan meta tag yang baru -->
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="{{ config('app.name') }}">
-
-    <!-- Prevent zoom on iOS -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 
     @stack('styles')
 </head>
@@ -231,13 +230,21 @@
 
     <!-- Performance monitoring (optional) -->
     <script>
-        // Monitor Core Web Vitals
-        if ('web-vital' in window) {
-            import('https://unpkg.com/web-vitals@3/dist/web-vitals.js').then(({ onCLS, onINP, onLCP }) => {
-                onCLS(console.log);
-                onINP(console.log);
-                onLCP(console.log);
-            });
+        // Monitor Core Web Vitals - FIXED: Improved error handling
+        if (typeof window !== 'undefined' && 'Promise' in window) {
+            try {
+                import('https://unpkg.com/web-vitals@3/dist/web-vitals.js')
+                    .then(({ onCLS, onINP, onLCP }) => {
+                        onCLS(console.log);
+                        onINP(console.log);
+                        onLCP(console.log);
+                    })
+                    .catch(error => {
+                        console.warn('Web Vitals could not be loaded:', error);
+                    });
+            } catch (error) {
+                console.warn('Web Vitals import failed:', error);
+            }
         }
     </script>
 </body>
