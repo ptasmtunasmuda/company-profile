@@ -5,11 +5,8 @@
 
 @section('content')
 @include('partials.portfolio.header', ['stats' => $stats])
-@include('partials.portfolio.navigation')
-
 @if($featuredPortfolios->count() > 0)
     @include('partials.portfolio.featured', ['featuredPortfolios' => $featuredPortfolios])
 @endif
-
 @include('partials.portfolio.grid', ['portfolios' => $portfolios])
 @endsection
