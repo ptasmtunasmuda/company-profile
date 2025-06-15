@@ -1,18 +1,24 @@
 <section class="py-24 bg-white relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    @include('partials.shared.background-patterns')
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Section Header -->
         <div class="text-center mb-20" data-aos="fade-up">
-            <div class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-primary-100 to-purple-100 text-primary-700 rounded-full text-sm font-bold mb-6">
+            <div class="inline-flex items-center px-8 py-4 bg-gradient-to-r from-primary-100 to-purple-100 text-primary-700 rounded-full text-sm font-bold mb-8 shadow-lg">
                 <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                 </svg>
                 Paket Harga
             </div>
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 mb-8 leading-tight">
-                Pilihan <span class="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">Terbaik</span>
+            <h2 class="text-4xl md:text-6xl font-black text-gray-900 mb-8 leading-tight">
+                Pilihan
+                <span class="bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
+                    Terbaik
+                </span>
             </h2>
-            <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Harga transparan dengan paket yang disesuaikan kebutuhan bisnis Anda
+            <div class="w-24 h-1 bg-gradient-to-r from-primary-600 to-purple-600 mx-auto rounded-full mb-8"></div>
+            <p class="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                Harga transparan dengan paket yang disesuaikan kebutuhan dan budget bisnis Anda
             </p>
         </div>
 
@@ -95,7 +101,7 @@
 
                     @if($plan['popular'])
                         <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                            <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                            <span class="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-6 py-2 rounded-full text-sm font-bold shadow-xl">
                                 🔥 Paling Populer
                             </span>
                         </div>
@@ -133,13 +139,21 @@
         </div>
 
         <!-- Additional Info -->
-        <div class="text-center mt-16" data-aos="fade-up">
-            <p class="text-gray-600 mb-4">
-                🎁 <strong>Bonus:</strong> Konsultasi gratis, revisi unlimited, dan garansi bug-fix 30 hari
-            </p>
-            <a href="{{ route('contact') }}" class="text-primary-600 hover:text-primary-700 font-semibold">
-                Butuh paket custom? Hubungi kami →
-            </a>
+        <div class="text-center mt-20" data-aos="fade-up">
+            <div class="bg-gradient-to-r from-gray-50 to-blue-50 rounded-3xl p-8 border border-gray-100 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">
+                    🎁 Bonus Eksklusif
+                </h3>
+                <p class="text-gray-600 mb-6">
+                    <strong>Gratis:</strong> Konsultasi awal, revisi unlimited hingga approved, garansi bug-fix 30 hari, dan training penggunaan sistem
+                </p>
+                <a href="{{ route('contact') }}" class="text-primary-600 hover:text-primary-700 font-semibold inline-flex items-center">
+                    Butuh paket custom? Hubungi kami
+                    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </a>
+            </div>
         </div>
     </div>
 </section>
