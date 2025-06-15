@@ -12,12 +12,4 @@
 @endif
 
 @include('partials.portfolio.grid', ['portfolios' => $portfolios])
-
-@push('styles')
-@include('partials.portfolio.styles')
-@endpush
-
-@push('scripts')
-@include('partials.portfolio.scripts')
-@endpush
 @endsection

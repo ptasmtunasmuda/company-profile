@@ -203,6 +203,175 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Portfolio Filter Functionality
+    const filterButtons = document.querySelectorAll('.portfolio-filter');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    filterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+
+            // Update active button
+            filterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('bg-primary-600', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+
+            this.classList.add('active');
+            this.classList.remove('bg-gray-100', 'text-gray-700');
+            this.classList.add('bg-primary-600', 'text-white');
+
+            // Filter portfolio items
+            portfolioItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+
+                if (filter === 'all' || category === filter) {
+                    item.style.display = 'block';
+                    item.style.animation = 'slideInUp 0.6s ease-out forwards';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Load More Functionality
+    const loadMoreBtn = document.getElementById('loadMore');
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            const originalText = this.innerHTML;
+
+            // Add loading state
+            this.innerHTML = `
+                <svg class="animate-spin w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading More Projects...
+            `;
+
+            // Simulate loading delay
+            setTimeout(() => {
+                this.innerHTML = originalText;
+            }, 2000);
+        });
+    }
+
+    // Portfolio Image Modal Functions
+    window.openImageModal = function(imageUrl, title) {
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+
+        if (modal && modalImage) {
+            modalImage.src = imageUrl;
+            modalImage.alt = title;
+
+            // Remove hidden class and add flex
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+
+            // Animate modal entrance
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+            }, 10);
+        }
+    };
+
+    window.closeImageModal = function() {
+        const modal = document.getElementById('imageModal');
+
+        if (modal) {
+            modal.classList.add('opacity-0');
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+    };
+
+    // Close modal when clicking outside the image
+    const imageModal = document.getElementById('imageModal');
+    if (imageModal) {
+        imageModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageModal();
+            }
+        });
+    }
+
+    // Enhanced hover effects for portfolio items
+    portfolioItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            if (window.innerWidth >= 768) { // Only on desktop
+                this.style.transform = 'translateY(-12px) rotateX(5deg)';
+                this.style.boxShadow = '0 25px 50px -12px rgba(0, 0, 0, 0.25)';
+            }
+        });
+
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) rotateX(0)';
+            this.style.boxShadow = '';
+        });
+    });
+
+    // Copy to clipboard functionality for project URL
+    window.copyToClipboard = function(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            showNotification('URL copied to clipboard!', 'success');
+        }).catch(() => {
+            showNotification('Failed to copy URL', 'error');
+        });
+    };
+
+    // Image preloading for gallery
+    const galleryImages = document.querySelectorAll('.gallery-item img');
+    galleryImages.forEach(img => {
+        const galleryItem = img.closest('.gallery-item');
+        if (galleryItem && galleryItem.getAttribute('onclick')) {
+            const onclickAttr = galleryItem.getAttribute('onclick');
+            const match = onclickAttr.match(/'([^']+)'/);
+            if (match) {
+                const fullSizeUrl = match[1];
+                const preloadImg = new Image();
+                preloadImg.src = fullSizeUrl;
+            }
+        }
+    });
+
+    // Enhanced prose styling for portfolio content
+    const proseContent = document.querySelectorAll('.prose-primary');
+    proseContent.forEach(prose => {
+        // Add custom styling for links
+        const links = prose.querySelectorAll('a');
+        links.forEach(link => {
+            if (!link.classList.contains('btn')) {
+                link.classList.add('text-primary-600', 'hover:text-primary-700', 'underline', 'transition-colors', 'duration-300');
+            }
+        });
+
+        // Add styling for blockquotes
+        const blockquotes = prose.querySelectorAll('blockquote');
+        blockquotes.forEach(quote => {
+            quote.classList.add('border-l-4', 'border-primary-500', 'pl-6', 'italic', 'text-gray-700', 'bg-gray-50', 'py-4', 'rounded-r-lg');
+        });
+
+        // Add styling for code blocks
+        const codeBlocks = prose.querySelectorAll('pre code');
+        codeBlocks.forEach(code => {
+            code.parentElement.classList.add('bg-gray-900', 'text-green-400', 'rounded-lg', 'p-4', 'overflow-x-auto', 'text-sm');
+        });
+
+        // Add styling for inline code
+        const inlineCodes = prose.querySelectorAll('p code, li code');
+        inlineCodes.forEach(code => {
+            code.classList.add('bg-primary-100', 'text-primary-800', 'px-2', 'py-1', 'rounded', 'text-sm', 'font-mono');
+        });
+    });
+
     // Parallax effect untuk background elements (desktop only)
     const parallaxElements = document.querySelectorAll('[data-parallax]');
 
@@ -512,6 +681,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 modal.classList.remove('active', 'show');
             });
 
+            // Close image modal
+            if (window.closeImageModal) {
+                closeImageModal();
+            }
+
             // Remove any tooltips
             document.querySelectorAll('.tooltip-element').forEach(tooltip => {
                 tooltip.remove();
@@ -529,6 +703,93 @@ document.addEventListener('DOMContentLoaded', function() {
             offset: 100
         });
     }
+
+    // Parallax effect for background elements
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallax = document.querySelectorAll('.animate-blob');
+
+        parallax.forEach(element => {
+            const speed = 0.5;
+            const yPos = -(scrolled * speed);
+            element.style.transform = `translateY(${yPos}px)`;
+        });
+    });
+
+    // Intersection Observer for scroll animations
+    const scrollObserverOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('slide-in-up');
+                scrollObserver.unobserve(entry.target);
+            }
+        });
+    }, scrollObserverOptions);
+
+    // Observe portfolio items for scroll animations
+    portfolioItems.forEach(item => {
+        scrollObserver.observe(item);
+    });
+
+    // Counter animation for stats
+    const statsCounters = document.querySelectorAll('[data-aos="fade-up"][data-aos-delay="400"] .text-3xl');
+    const animateCounter = (counter) => {
+        const target = parseInt(counter.textContent.replace(/\D/g, ''));
+        if (isNaN(target)) return;
+
+        const increment = target / 100;
+        let current = 0;
+
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
+            }
+        };
+
+        updateCounter();
+    };
+
+    // Trigger counter animation when stats section is visible
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                statsCounters.forEach(counter => animateCounter(counter));
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    });
+
+    const statsSection = document.querySelector('[data-aos-delay="400"]');
+    if (statsSection) {
+        statsObserver.observe(statsSection);
+    }
+
+    // Image lazy loading
+    const lazyImages = document.querySelectorAll('img[data-src]');
+    const imageLoadObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.classList.remove('loading-shimmer');
+                imageLoadObserver.unobserve(img);
+            }
+        });
+    });
+
+    lazyImages.forEach(img => {
+        img.classList.add('loading-shimmer');
+        imageLoadObserver.observe(img);
+    });
 
     // Debug mode (only in development)
     if (window.location.search.includes('debug=true') && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')) {
@@ -553,4 +814,6 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🎉 App.js initialized successfully!');
     console.log('📱 Device: ' + (window.innerWidth >= 768 ? 'Desktop' : 'Mobile'));
     console.log('🎨 Animations: ' + (prefersReducedMotion.matches ? 'Reduced' : 'Full'));
+    console.log('🔧 Portfolio features loaded');
+    console.log('📊 Performance monitoring active');
 });

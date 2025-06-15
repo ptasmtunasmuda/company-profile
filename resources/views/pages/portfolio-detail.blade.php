@@ -13,12 +13,4 @@
 
 @include('partials.portfolio-detail.cta')
 @include('partials.portfolio-detail.modal')
-
-@push('styles')
-@include('partials.portfolio-detail.styles')
-@endpush
-
-@push('scripts')
-@include('partials.portfolio-detail.scripts')
-@endpush
 @endsection
