@@ -8,6 +8,5 @@
 @include('partials.about.header', ['page' => $page, 'stats' => $stats])
 @include('partials.about.content', ['page' => $page])
 @include('partials.about.team')
-@include('partials.about.stats', ['stats' => $stats])
 @include('partials.about.cta', ['contactSettings' => $contactSettings])
 @endsection
