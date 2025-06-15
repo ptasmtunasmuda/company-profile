@@ -811,6 +811,143 @@ document.addEventListener('DOMContentLoaded', function() {
         debugInfo.addEventListener('click', () => debugInfo.remove());
     }
 
+     // Contact Page Functions
+    window.openMapModal = function() {
+        const modal = document.getElementById('mapModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Add animation
+            setTimeout(() => {
+                const content = modal.querySelector('.bg-white');
+                if (content) {
+                    content.classList.add('modal-enter-active');
+                }
+            }, 10);
+        }
+    };
+
+    window.closeMapModal = function() {
+        const modal = document.getElementById('mapModal');
+        if (modal) {
+            const modalContent = modal.querySelector('.bg-white');
+
+            if (modalContent) {
+                modalContent.classList.add('modal-exit-active');
+            }
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                if (modalContent) {
+                    modalContent.classList.remove('modal-enter-active', 'modal-exit-active');
+                }
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+    };
+
+
+
+    // Contact card hover effects
+    const contactCards = document.querySelectorAll('.contact-card');
+    contactCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            if (window.innerWidth >= 768) { // Only on desktop
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            }
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Copy contact info to clipboard
+    window.copyToClipboard = function(text, element) {
+        navigator.clipboard.writeText(text).then(() => {
+            // Show success feedback
+            const originalContent = element.innerHTML;
+            element.innerHTML = `
+                <svg class="w-4 h-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                Copied!
+            `;
+
+            setTimeout(() => {
+                element.innerHTML = originalContent;
+            }, 2000);
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            showNotification('Failed to copy to clipboard', 'error');
+        });
+    };
+
+    // Add click-to-copy functionality for contact info
+    const emailElements = document.querySelectorAll('[data-contact="email"]');
+    const phoneElements = document.querySelectorAll('[data-contact="phone"]');
+
+    emailElements.forEach(element => {
+        element.style.cursor = 'pointer';
+        element.title = 'Click to copy email';
+        element.addEventListener('click', function() {
+            copyToClipboard(this.textContent, this);
+        });
+    });
+
+    phoneElements.forEach(element => {
+        element.style.cursor = 'pointer';
+        element.title = 'Click to copy phone number';
+        element.addEventListener('click', function() {
+            copyToClipboard(this.textContent, this);
+        });
+    });
+
+    // Close map modal with Escape key and outside click
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            closeMapModal();
+        }
+    });
+
+    const mapModal = document.getElementById('mapModal');
+    if (mapModal) {
+        mapModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMapModal();
+            }
+        });
+    }
+
+    // Add success animation for form submission
+    if (window.location.search.includes('success=1')) {
+        // Create success overlay
+        const successOverlay = document.createElement('div');
+        successOverlay.className = 'fixed inset-0 bg-green-500 bg-opacity-90 flex items-center justify-center z-50';
+        successOverlay.innerHTML = `
+            <div class="bg-white rounded-3xl p-8 mx-4 text-center shadow-2xl transform scale-0 transition-transform duration-500">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+                <p class="text-gray-600">Thank you for contacting us. We'll reply within 24 hours.</p>
+            </div>
+        `;
+
+        document.body.appendChild(successOverlay);
+
+        setTimeout(() => {
+            successOverlay.querySelector('div').style.transform = 'scale(1)';
+        }, 100);
+
+        setTimeout(() => {
+            successOverlay.remove();
+        }, 3000);
+    }
+
     console.log('🎉 App.js initialized successfully!');
     console.log('📱 Device: ' + (window.innerWidth >= 768 ? 'Desktop' : 'Mobile'));
     console.log('🎨 Animations: ' + (prefersReducedMotion.matches ? 'Reduced' : 'Full'));

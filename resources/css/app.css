@@ -668,3 +668,137 @@ html {
 .slide-in-up {
     animation: slideInUp 0.6s ease-out forwards;
 }
+
+/* Contact Page Styles */
+.contact-card {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.contact-card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+/* Form Enhancements */
+.form-input {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Modal Animations */
+.modal-enter {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+.modal-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: all 0.3s ease;
+}
+
+.modal-exit {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.modal-exit-active {
+    opacity: 0;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+/* Button Loading State */
+.btn-loading {
+    position: relative;
+    pointer-events: none;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 50%;
+    left: 50%;
+    margin-left: -8px;
+    margin-top: -8px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Map specific styles */
+.map-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.map-overlay {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Enhanced gradient animations */
+@keyframes gradient-shift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.animated-gradient {
+    background-size: 200% 200%;
+    animation: gradient-shift 3s ease infinite;
+}
+
+/* Responsive adjustments for contact */
+@media (max-width: 768px) {
+    .contact-card:hover {
+        transform: translateY(-4px) scale(1.01);
+    }
+
+    .map-info-card {
+        position: relative;
+        top: auto;
+        left: auto;
+        transform: none;
+        margin: 1rem;
+        max-width: none;
+    }
+
+    #mapModal .flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    #mapModal a {
+        justify-content: center;
+        width: 100%;
+    }
+}
+
+/* Print styles for contact */
+@media print {
+    .contact-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #e5e7eb;
+    }
+
+    #mapModal {
+        display: none !important;
+    }
+}
