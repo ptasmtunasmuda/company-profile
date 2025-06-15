@@ -203,16 +203,56 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Portfolio Filter Functionality
-    const filterButtons = document.querySelectorAll('.portfolio-filter');
-    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    // Service Filter Functionality
+    const serviceFilterButtons = document.querySelectorAll('.service-filter');
+    const serviceItems = document.querySelectorAll('.service-item');
 
-    filterButtons.forEach(button => {
+    serviceFilterButtons.forEach(button => {
         button.addEventListener('click', function() {
             const filter = this.getAttribute('data-filter');
 
             // Update active button
-            filterButtons.forEach(btn => {
+            serviceFilterButtons.forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('bg-primary-600', 'text-white');
+                btn.classList.add('bg-gray-100', 'text-gray-700');
+            });
+
+            this.classList.add('active');
+            this.classList.remove('bg-gray-100', 'text-gray-700');
+            this.classList.add('bg-primary-600', 'text-white');
+
+            // Filter service items
+            serviceItems.forEach(item => {
+                const category = item.getAttribute('data-category');
+
+                if (filter === 'all' || category === filter) {
+                    item.style.display = 'block';
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, 50);
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'translateY(20px)';
+                    setTimeout(() => {
+                        item.style.display = 'none';
+                    }, 300);
+                }
+            });
+        });
+    });
+
+    // Portfolio Filter Functionality
+    const portfolioFilterButtons = document.querySelectorAll('.portfolio-filter');
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+
+    portfolioFilterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const filter = this.getAttribute('data-filter');
+
+            // Update active button
+            portfolioFilterButtons.forEach(btn => {
                 btn.classList.remove('active');
                 btn.classList.remove('bg-primary-600', 'text-white');
                 btn.classList.add('bg-gray-100', 'text-gray-700');
@@ -236,7 +276,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Load More Functionality
+    // Load More Services Functionality
+    const loadMoreServicesBtn = document.getElementById('load-more-services');
+    if (loadMoreServicesBtn) {
+        loadMoreServicesBtn.addEventListener('click', function() {
+            const originalText = this.innerHTML;
+
+            // Add loading state
+            this.innerHTML = `
+                <svg class="animate-spin w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Loading...
+            `;
+
+            // Simulate loading
+            setTimeout(() => {
+                this.innerHTML = originalText;
+                showNotification('Lebih banyak layanan akan segera hadir!', 'info');
+            }, 2000);
+        });
+    }
+
+    // Load More Functionality untuk portfolio
     const loadMoreBtn = document.getElementById('loadMore');
     if (loadMoreBtn) {
         loadMoreBtn.addEventListener('click', function() {
@@ -257,6 +320,21 @@ document.addEventListener('DOMContentLoaded', function() {
             }, 2000);
         });
     }
+
+    // Enhanced hover effects for service items
+    serviceItems.forEach(item => {
+        item.addEventListener('mouseenter', function() {
+            if (window.innerWidth >= 768) {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+                this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.15)';
+            }
+        });
+
+        item.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+            this.style.boxShadow = '';
+        });
+    });
 
     // Portfolio Image Modal Functions
     window.openImageModal = function(imageUrl, title) {
@@ -319,11 +397,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Copy to clipboard functionality for project URL
-    window.copyToClipboard = function(text) {
+    window.copyToClipboard = function(text, element) {
         navigator.clipboard.writeText(text).then(() => {
-            showNotification('URL copied to clipboard!', 'success');
-        }).catch(() => {
-            showNotification('Failed to copy URL', 'error');
+            // Show success feedback
+            if (element) {
+                const originalContent = element.innerHTML;
+                element.innerHTML = `
+                    <svg class="w-4 h-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Copied!
+                `;
+
+                setTimeout(() => {
+                    element.innerHTML = originalContent;
+                }, 2000);
+            } else {
+                showNotification('URL copied to clipboard!', 'success');
+            }
+        }).catch(err => {
+            console.error('Failed to copy: ', err);
+            showNotification('Failed to copy to clipboard', 'error');
         });
     };
 
@@ -461,6 +555,45 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Counter animation untuk hero stats
+    const heroStats = document.querySelectorAll('.hero-stat-number');
+    const animateCounter = (counter) => {
+        const text = counter.textContent;
+        const target = parseInt(text.replace(/\D/g, ''));
+        if (isNaN(target)) return;
+
+        const increment = target / 50;
+        let current = 0;
+
+        const updateCounter = () => {
+            current += increment;
+            if (current < target) {
+                const suffix = text.includes('+') ? '+' : text.includes('%') ? '%' : text.includes('/') ? '/7' : '';
+                counter.textContent = Math.ceil(current) + suffix;
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = text;
+            }
+        };
+
+        updateCounter();
+    };
+
+    // Trigger counter animation when hero section is visible
+    const heroStatsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                heroStats.forEach(stat => animateCounter(stat));
+                heroStatsObserver.unobserve(entry.target);
+            }
+        });
+    });
+
+    const heroSection = document.querySelector('.hero-stat');
+    if (heroSection) {
+        heroStatsObserver.observe(heroSection.parentElement);
+    }
+
     // Enhanced button ripple effect
     const buttons = document.querySelectorAll('.cta-button, .btn-primary, .btn-hover-effect');
     buttons.forEach(button => {
@@ -584,6 +717,131 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // Contact Page Functions
+    window.openMapModal = function() {
+        const modal = document.getElementById('mapModal');
+        if (modal) {
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+
+            // Add animation
+            setTimeout(() => {
+                const content = modal.querySelector('.bg-white');
+                if (content) {
+                    content.classList.add('modal-enter-active');
+                }
+            }, 10);
+        }
+    };
+
+    window.closeMapModal = function() {
+        const modal = document.getElementById('mapModal');
+        if (modal) {
+            const modalContent = modal.querySelector('.bg-white');
+
+            if (modalContent) {
+                modalContent.classList.add('modal-exit-active');
+            }
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                if (modalContent) {
+                    modalContent.classList.remove('modal-enter-active', 'modal-exit-active');
+                }
+                document.body.style.overflow = 'auto';
+            }, 300);
+        }
+    };
+
+    // Contact card hover effects
+    const contactCards = document.querySelectorAll('.contact-card');
+    contactCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            if (window.innerWidth >= 768) { // Only on desktop
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            }
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+    });
+
+    // Add click-to-copy functionality for contact info
+    const emailElements = document.querySelectorAll('[data-contact="email"]');
+    const phoneElements = document.querySelectorAll('[data-contact="phone"]');
+
+    emailElements.forEach(element => {
+        element.style.cursor = 'pointer';
+        element.title = 'Click to copy email';
+        element.addEventListener('click', function() {
+            copyToClipboard(this.textContent, this);
+        });
+    });
+
+    phoneElements.forEach(element => {
+        element.style.cursor = 'pointer';
+        element.title = 'Click to copy phone number';
+        element.addEventListener('click', function() {
+            copyToClipboard(this.textContent, this);
+        });
+    });
+
+    // Close map modal with Escape key and outside click
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            // Close image modal
+            if (window.closeImageModal) {
+                closeImageModal();
+            }
+            // Close map modal
+            if (window.closeMapModal) {
+                closeMapModal();
+            }
+            // Remove any tooltips
+            document.querySelectorAll('.tooltip-element').forEach(tooltip => {
+                tooltip.remove();
+            });
+        }
+    });
+
+    const mapModal = document.getElementById('mapModal');
+    if (mapModal) {
+        mapModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMapModal();
+            }
+        });
+    }
+
+    // Add success animation for form submission
+    if (window.location.search.includes('success=1')) {
+        // Create success overlay
+        const successOverlay = document.createElement('div');
+        successOverlay.className = 'fixed inset-0 bg-green-500 bg-opacity-90 flex items-center justify-center z-50';
+        successOverlay.innerHTML = `
+            <div class="bg-white rounded-3xl p-8 mx-4 text-center shadow-2xl transform scale-0 transition-transform duration-500">
+                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
+                <p class="text-gray-600">Thank you for contacting us. We'll reply within 24 hours.</p>
+            </div>
+        `;
+
+        document.body.appendChild(successOverlay);
+
+        setTimeout(() => {
+            successOverlay.querySelector('div').style.transform = 'scale(1)';
+        }, 100);
+
+        setTimeout(() => {
+            successOverlay.remove();
+        }, 3000);
+    }
+
     // Notification system
     function showNotification(message, type = 'success', duration = 3000) {
         const notification = document.createElement('div');
@@ -591,6 +849,7 @@ document.addEventListener('DOMContentLoaded', function() {
             type === 'success' ? 'bg-green-500 text-white' :
             type === 'error' ? 'bg-red-500 text-white' :
             type === 'warning' ? 'bg-yellow-500 text-white' :
+            type === 'info' ? 'bg-blue-500 text-white' :
             'bg-blue-500 text-white'
         }`;
         notification.textContent = message;
@@ -672,27 +931,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Keyboard navigation improvements
-    document.addEventListener('keydown', function(e) {
-        // ESC key to close modals
-        if (e.key === 'Escape') {
-            const modals = document.querySelectorAll('.modal.active, .modal.show');
-            modals.forEach(modal => {
-                modal.classList.remove('active', 'show');
-            });
-
-            // Close image modal
-            if (window.closeImageModal) {
-                closeImageModal();
-            }
-
-            // Remove any tooltips
-            document.querySelectorAll('.tooltip-element').forEach(tooltip => {
-                tooltip.remove();
-            });
-        }
-    });
-
     // Initialize AOS (Animate On Scroll) if available
     if (typeof AOS !== 'undefined') {
         AOS.init({
@@ -736,43 +974,6 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollObserver.observe(item);
     });
 
-    // Counter animation for stats
-    const statsCounters = document.querySelectorAll('[data-aos="fade-up"][data-aos-delay="400"] .text-3xl');
-    const animateCounter = (counter) => {
-        const target = parseInt(counter.textContent.replace(/\D/g, ''));
-        if (isNaN(target)) return;
-
-        const increment = target / 100;
-        let current = 0;
-
-        const updateCounter = () => {
-            current += increment;
-            if (current < target) {
-                counter.textContent = Math.ceil(current) + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
-                requestAnimationFrame(updateCounter);
-            } else {
-                counter.textContent = target + (counter.textContent.includes('+') ? '+' : '') + (counter.textContent.includes('%') ? '%' : '');
-            }
-        };
-
-        updateCounter();
-    };
-
-    // Trigger counter animation when stats section is visible
-    const statsObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                statsCounters.forEach(counter => animateCounter(counter));
-                statsObserver.unobserve(entry.target);
-            }
-        });
-    });
-
-    const statsSection = document.querySelector('[data-aos-delay="400"]');
-    if (statsSection) {
-        statsObserver.observe(statsSection);
-    }
-
     // Image lazy loading
     const lazyImages = document.querySelectorAll('img[data-src]');
     const imageLoadObserver = new IntersectionObserver((entries) => {
@@ -811,146 +1012,242 @@ document.addEventListener('DOMContentLoaded', function() {
         debugInfo.addEventListener('click', () => debugInfo.remove());
     }
 
-     // Contact Page Functions
-    window.openMapModal = function() {
-        const modal = document.getElementById('mapModal');
-        if (modal) {
-            modal.classList.remove('hidden');
-            document.body.style.overflow = 'hidden';
-
-            // Add animation
-            setTimeout(() => {
-                const content = modal.querySelector('.bg-white');
-                if (content) {
-                    content.classList.add('modal-enter-active');
-                }
-            }, 10);
-        }
-    };
-
-    window.closeMapModal = function() {
-        const modal = document.getElementById('mapModal');
-        if (modal) {
-            const modalContent = modal.querySelector('.bg-white');
-
-            if (modalContent) {
-                modalContent.classList.add('modal-exit-active');
-            }
-
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                if (modalContent) {
-                    modalContent.classList.remove('modal-enter-active', 'modal-exit-active');
-                }
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
-    };
-
-
-
-    // Contact card hover effects
-    const contactCards = document.querySelectorAll('.contact-card');
-    contactCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            if (window.innerWidth >= 768) { // Only on desktop
-                this.style.transform = 'translateY(-8px) scale(1.02)';
-            }
-        });
-
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0) scale(1)';
-        });
-    });
-
-    // Copy contact info to clipboard
-    window.copyToClipboard = function(text, element) {
-        navigator.clipboard.writeText(text).then(() => {
-            // Show success feedback
-            const originalContent = element.innerHTML;
-            element.innerHTML = `
-                <svg class="w-4 h-4 mr-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                Copied!
-            `;
-
-            setTimeout(() => {
-                element.innerHTML = originalContent;
-            }, 2000);
-        }).catch(err => {
-            console.error('Failed to copy: ', err);
-            showNotification('Failed to copy to clipboard', 'error');
-        });
-    };
-
-    // Add click-to-copy functionality for contact info
-    const emailElements = document.querySelectorAll('[data-contact="email"]');
-    const phoneElements = document.querySelectorAll('[data-contact="phone"]');
-
-    emailElements.forEach(element => {
-        element.style.cursor = 'pointer';
-        element.title = 'Click to copy email';
-        element.addEventListener('click', function() {
-            copyToClipboard(this.textContent, this);
-        });
-    });
-
-    phoneElements.forEach(element => {
-        element.style.cursor = 'pointer';
-        element.title = 'Click to copy phone number';
-        element.addEventListener('click', function() {
-            copyToClipboard(this.textContent, this);
-        });
-    });
-
-    // Close map modal with Escape key and outside click
+    // Keyboard navigation improvements
     document.addEventListener('keydown', function(e) {
+        // ESC key to close modals
         if (e.key === 'Escape') {
-            closeMapModal();
-        }
-    });
+            const modals = document.querySelectorAll('.modal.active, .modal.show');
+            modals.forEach(modal => {
+                modal.classList.remove('active', 'show');
+            });
 
-    const mapModal = document.getElementById('mapModal');
-    if (mapModal) {
-        mapModal.addEventListener('click', function(e) {
-            if (e.target === this) {
+            // Close image modal
+            if (window.closeImageModal) {
+                closeImageModal();
+            }
+
+            // Close map modal
+            if (window.closeMapModal) {
                 closeMapModal();
             }
+
+            // Remove any tooltips
+            document.querySelectorAll('.tooltip-element').forEach(tooltip => {
+                tooltip.remove();
+            });
+        }
+
+        // Tab navigation enhancements
+        if (e.key === 'Tab') {
+            // Add visual indication for keyboard navigation
+            document.body.classList.add('keyboard-navigation');
+        }
+    });
+
+    // Remove keyboard navigation class on mouse use
+    document.addEventListener('mousedown', function() {
+        document.body.classList.remove('keyboard-navigation');
+    });
+
+    // Enhanced scroll behavior for sections
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+    function updateActiveNavLink() {
+        let currentSection = '';
+
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const sectionHeight = section.offsetHeight;
+
+            if (sectionTop <= 100 && sectionTop + sectionHeight > 100) {
+                currentSection = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSection}`) {
+                link.classList.add('active');
+            }
         });
     }
 
-    // Add success animation for form submission
-    if (window.location.search.includes('success=1')) {
-        // Create success overlay
-        const successOverlay = document.createElement('div');
-        successOverlay.className = 'fixed inset-0 bg-green-500 bg-opacity-90 flex items-center justify-center z-50';
-        successOverlay.innerHTML = `
-            <div class="bg-white rounded-3xl p-8 mx-4 text-center shadow-2xl transform scale-0 transition-transform duration-500">
-                <div class="w-16 h-16 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                    </svg>
-                </div>
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h3>
-                <p class="text-gray-600">Thank you for contacting us. We'll reply within 24 hours.</p>
-            </div>
-        `;
+    // Throttled scroll event for nav highlighting
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (scrollTimeout) {
+            clearTimeout(scrollTimeout);
+        }
+        scrollTimeout = setTimeout(updateActiveNavLink, 50);
+    });
 
-        document.body.appendChild(successOverlay);
+    // Enhanced form handling
+    const contactForms = document.querySelectorAll('form[data-contact]');
+    contactForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            const submitBtn = this.querySelector('button[type="submit"]');
+            if (submitBtn) {
+                submitBtn.classList.add('btn-loading');
+                submitBtn.disabled = true;
+            }
+        });
+    });
 
-        setTimeout(() => {
-            successOverlay.querySelector('div').style.transform = 'scale(1)';
-        }, 100);
+    // Progressive Web App installation prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
 
-        setTimeout(() => {
-            successOverlay.remove();
-        }, 3000);
+        // Show install button if you have one
+        const installBtn = document.getElementById('install-app');
+        if (installBtn) {
+            installBtn.style.display = 'block';
+            installBtn.addEventListener('click', () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        }
+    });
+
+    // Advanced analytics tracking (if needed)
+    function trackEvent(action, category = 'general', label = '') {
+        if (typeof gtag !== 'undefined') {
+            gtag('event', action, {
+                event_category: category,
+                event_label: label
+            });
+        }
+
+        console.log(`📊 Event tracked: ${action} | ${category} | ${label}`);
     }
 
+    // Track important interactions
+    document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+        link.addEventListener('click', () => trackEvent('email_click', 'contact'));
+    });
+
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+        link.addEventListener('click', () => trackEvent('phone_click', 'contact'));
+    });
+
+    serviceFilterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            trackEvent('filter_click', 'services', this.textContent);
+        });
+    });
+
+    portfolioFilterButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            trackEvent('filter_click', 'portfolio', this.textContent);
+        });
+    });
+
+    // Enhanced error handling
+    window.addEventListener('error', function(e) {
+        console.error('JavaScript Error:', e.error);
+
+        // Show user-friendly error message in development
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            showNotification('A JavaScript error occurred. Check console for details.', 'error');
+        }
+    });
+
+    // Unhandled promise rejection handling
+    window.addEventListener('unhandledrejection', function(e) {
+        console.error('Unhandled Promise Rejection:', e.reason);
+
+        if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+            showNotification('An async error occurred. Check console for details.', 'error');
+        }
+    });
+
+    // Browser compatibility checks
+    function checkBrowserSupport() {
+        const features = {
+            intersectionObserver: 'IntersectionObserver' in window,
+            webAnimations: 'animate' in document.createElement('div'),
+            customProperties: CSS.supports('color', 'var(--fake-var)'),
+            gridLayout: CSS.supports('display', 'grid'),
+            flexbox: CSS.supports('display', 'flex')
+        };
+
+        const unsupportedFeatures = Object.entries(features)
+            .filter(([name, supported]) => !supported)
+            .map(([name]) => name);
+
+        if (unsupportedFeatures.length > 0) {
+            console.warn('Unsupported browser features:', unsupportedFeatures);
+
+            // Add fallback class to body
+            document.body.classList.add('legacy-browser');
+        }
+
+        return features;
+    }
+
+    const browserSupport = checkBrowserSupport();
+
+    // Fallbacks for older browsers
+    if (!browserSupport.intersectionObserver) {
+        // Simple fallback for intersection observer
+        document.querySelectorAll('[data-animate]').forEach(el => {
+            el.classList.add('animate-in');
+        });
+    }
+
+    // Memory leak prevention
+    window.addEventListener('beforeunload', function() {
+        // Clear any intervals
+        clearInterval(scrollTimeout);
+
+        // Remove event listeners if needed
+        parallaxElements.forEach(element => {
+            element.style.transform = '';
+        });
+
+        // Clear any pending animations
+        document.querySelectorAll('.animate-blob').forEach(el => {
+            el.style.animation = 'none';
+        });
+    });
+
+    // Development helpers
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        // Add development utilities to window
+        window.devUtils = {
+            showNotification,
+            trackEvent,
+            checkBrowserSupport,
+            toggleDebugMode: () => {
+                const url = new URL(window.location);
+                if (url.searchParams.has('debug')) {
+                    url.searchParams.delete('debug');
+                } else {
+                    url.searchParams.set('debug', 'true');
+                }
+                window.location.href = url.toString();
+            }
+        };
+
+        console.log('🛠️ Development utilities available at window.devUtils');
+    }
+
+    // Final initialization logs
     console.log('🎉 App.js initialized successfully!');
     console.log('📱 Device: ' + (window.innerWidth >= 768 ? 'Desktop' : 'Mobile'));
     console.log('🎨 Animations: ' + (prefersReducedMotion.matches ? 'Reduced' : 'Full'));
-    console.log('🔧 Portfolio features loaded');
+    console.log('🔧 Service features loaded');
+    console.log('🖼️ Portfolio features loaded');
+    console.log('📞 Contact features loaded');
     console.log('📊 Performance monitoring active');
+
+    // Log feature support
+    console.log('🌐 Browser support:', browserSupport);
 });
