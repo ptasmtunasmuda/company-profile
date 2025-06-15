@@ -7,6 +7,8 @@
 /* Custom styles */
 body {
     font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 /* Smooth scrolling */
@@ -14,27 +16,191 @@ html {
     scroll-behavior: smooth;
 }
 
-/* Navbar Glass Effect - Default for all devices */
+/* Floating Navbar Specific Styles */
+
+/* Remove any default spacing from body and main */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Main content starts from absolute top - no spacing for floating navbar */
+main {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto !important;
+}
+
+/* Pastikan semua elemen dalam main bisa diklik */
+main * {
+    pointer-events: auto !important;
+}
+
+/* Pastikan button dan link dalam main content bisa diklik */
+main button,
+main a,
+main input,
+main textarea,
+main select,
+main [onclick],
+main [role="button"],
+main .btn,
+main .button {
+    pointer-events: auto !important;
+    position: relative;
+    z-index: 2;
+}
+
+/* Ensure first section/hero can be full height */
+.hero-section,
+.first-section,
+.full-height {
+    min-height: 100vh;
+    position: relative;
+    pointer-events: auto !important;
+}
+
+/* Add top padding only to content that needs it (not hero sections) */
+.content-section {
+    padding-top: 2rem;
+    pointer-events: auto !important;
+}
+
+@media (min-width: 768px) {
+    .content-section {
+        padding-top: 3rem;
+    }
+}
+
+/* Navbar should float above everything */
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    pointer-events: auto;
+}
+
+/* Fix pointer-events untuk container navbar - hanya navbar yang interaktif */
+.navbar-container {
+    pointer-events: auto;
+    position: relative;
+    z-index: 50;
+}
+
+.navbar-container > * {
+    pointer-events: auto;
+}
+
+/* Pastikan tidak ada overlay yang menghalangi */
+body::before,
+body::after,
+*::before,
+*::after {
+    pointer-events: none;
+}
+
+/* Kecuali untuk elemen yang memang butuh interaksi */
+button::before,
+button::after,
+a::before,
+a::after,
+input::before,
+input::after,
+.btn::before,
+.btn::after {
+    pointer-events: auto;
+}
+
+/* Optional: Add subtle shadow to floating navbar when scrolled */
+.navbar-floating-shadow {
+    transition: box-shadow 0.3s ease;
+}
+
+.navbar-floating-shadow.scrolled {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+}
+
+/* For hero sections with background images/videos */
+.hero-full-screen {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Ensure text over hero is readable with floating navbar */
+.hero-content {
+    position: relative;
+    z-index: 2;
+    padding-top: 6rem; /* Only for text content, not background */
+}
+
+@media (min-width: 768px) {
+    .hero-content {
+        padding-top: 8rem;
+    }
+}
+
+/* Remove padding from sections that should be full width/height */
+.no-top-padding {
+    padding-top: 0 !important;
+}
+
+/* For sections immediately after hero */
+.section-after-hero {
+    margin-top: 0;
+    padding-top: 4rem;
+}
+
+@media (min-width: 768px) {
+    .section-after-hero {
+        padding-top: 6rem;
+    }
+}
+
+/* Enhanced Responsive Navbar Styles */
 .navbar-glass {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
 }
 
 .navbar-glass-scrolled {
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.98);
 }
 
-/* Custom backdrop blur - ONLY for desktop */
-@media (min-width: 1024px) {
+/* Desktop backdrop blur */
+@media (min-width: 1280px) {
     .backdrop-blur-md {
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
     }
+
+    .navbar-glass {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
 }
 
-/* Mobile: disable backdrop blur and ensure content brightness */
-@media (max-width: 1023px) {
+/* Tablet optimizations */
+@media (min-width: 768px) and (max-width: 1279px) {
+    .backdrop-blur-md {
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+    }
+
+    .navbar-glass {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+    }
+}
+
+/* Mobile: disable backdrop blur and ensure solid background */
+@media (max-width: 767px) {
     /* Disable all backdrop blur effects on mobile */
     .backdrop-blur-md {
         backdrop-filter: none !important;
@@ -64,6 +230,408 @@ html {
     nav {
         isolation: isolate;
     }
+}
+
+/* Enhanced mobile menu animations */
+@media (max-width: 1279px) {
+    .mobile-menu-enter {
+        transform: translateY(-10px) scale(0.95);
+        opacity: 0;
+    }
+
+    .mobile-menu-enter-active {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .mobile-menu-exit {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    .mobile-menu-exit-active {
+        transform: translateY(-10px) scale(0.95);
+        opacity: 0;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
+
+/* Improved hamburger animation */
+.hamburger-line {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+/* WhatsApp button responsive improvements */
+.wa-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wa-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+@media (max-width: 1279px) {
+    .wa-button:hover {
+        transform: scale(1.02);
+    }
+}
+
+/* Logo responsive improvements */
+.logo-container {
+    max-width: calc(100vw - 120px); /* Ensure space for buttons */
+}
+
+@media (min-width: 640px) {
+    .logo-container {
+        max-width: calc(100vw - 140px);
+    }
+}
+
+@media (min-width: 768px) {
+    .logo-container {
+        max-width: calc(100vw - 160px);
+    }
+}
+
+@media (min-width: 1280px) {
+    .logo-container {
+        max-width: none;
+    }
+}
+
+/* Active state improvements */
+.nav-link-active {
+    position: relative;
+}
+
+.nav-link-active::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    background-color: currentColor;
+    border-radius: 50%;
+    opacity: 1;
+}
+
+/* Mobile menu item hover effects */
+@media (max-width: 1279px) {
+    .mobile-nav-item {
+        transition: all 0.2s ease;
+    }
+
+    .mobile-nav-item:hover {
+        transform: translateX(4px);
+    }
+
+    .mobile-nav-item:active {
+        transform: translateX(2px) scale(0.98);
+    }
+}
+
+/* Improved focus states for accessibility */
+.nav-focus:focus-visible {
+    outline: 2px solid theme('colors.primary.500');
+    outline-offset: 2px;
+    border-radius: 8px;
+}
+
+/* Smooth height transitions for navbar */
+.navbar-height-transition {
+    transition: padding 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Shadow improvements based on scroll */
+.navbar-shadow-light {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.navbar-shadow-medium {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+.navbar-shadow-heavy {
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+/* Safe area insets for devices with notches */
+@supports (padding: max(0px)) {
+    .navbar-safe-area {
+        padding-left: max(1rem, env(safe-area-inset-left));
+        padding-right: max(1rem, env(safe-area-inset-right));
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .navbar-glass {
+        background-color: white !important;
+        border: 2px solid black !important;
+    }
+
+    .mobile-menu-bg {
+        background-color: white !important;
+        border: 2px solid black !important;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .navbar-glass,
+    .wa-button,
+    .hamburger-line,
+    .mobile-nav-item,
+    .nav-link-active {
+        transition: none !important;
+        animation: none !important;
+    }
+
+    .mobile-menu-enter,
+    .mobile-menu-enter-active,
+    .mobile-menu-exit,
+    .mobile-menu-exit-active {
+        transition: none !important;
+        transform: none !important;
+    }
+}
+
+/* Print styles for navbar */
+@media print {
+    nav {
+        display: none !important;
+    }
+}
+
+/* Landscape orientation optimizations for mobile */
+@media (max-width: 767px) and (orientation: landscape) {
+    .navbar-container {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .navbar-inner {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+
+    .logo-height {
+        height: 1.5rem; /* 24px */
+    }
+}
+
+/* Very small screens (< 375px) */
+@media (max-width: 374px) {
+    .navbar-container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .navbar-inner {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
+
+    .logo-text {
+        font-size: 1rem;
+        max-width: 120px;
+    }
+
+    .mobile-menu-container {
+        margin-left: 0.75rem;
+        margin-right: 0.75rem;
+    }
+}
+
+/* Large screens (> 1536px) */
+@media (min-width: 1536px) {
+    .navbar-container {
+        max-width: 1280px;
+    }
+
+    .navbar-inner {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+
+    .nav-links > * + * {
+        margin-left: 0.5rem;
+    }
+
+    .nav-link {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* Touch target improvements for mobile */
+@media (max-width: 1279px) {
+    .touch-target {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .mobile-nav-item {
+        min-height: 48px;
+    }
+}
+
+/* Loading state for navbar */
+.navbar-loading {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Dark mode support (future-proofing) */
+@media (prefers-color-scheme: dark) {
+    .navbar-glass {
+        background-color: rgba(17, 24, 39, 0.9) !important;
+        border-color: rgba(55, 65, 81, 0.3) !important;
+    }
+
+    .navbar-glass-scrolled {
+        background-color: rgba(17, 24, 39, 0.95) !important;
+    }
+
+    .mobile-menu-bg {
+        background-color: rgba(17, 24, 39, 0.9) !important;
+        border-color: rgba(55, 65, 81, 0.3) !important;
+    }
+}
+
+/* Backdrop filter fallback for older browsers */
+@supports not (backdrop-filter: blur(12px)) {
+    .navbar-glass {
+        background-color: rgba(255, 255, 255, 0.98) !important;
+    }
+
+    .mobile-menu-bg {
+        background-color: rgba(255, 255, 255, 0.98) !important;
+    }
+}
+
+/* Enhanced hover states for desktop */
+@media (min-width: 1280px) {
+    .nav-link:hover {
+        transform: translateY(-1px);
+    }
+
+    .nav-link:active {
+        transform: translateY(0);
+    }
+}
+
+/* Improved mobile menu backdrop */
+.mobile-menu-backdrop {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.25);
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    /* IMPORTANT: Backdrop hanya muncul ketika mobile menu terbuka */
+    display: none;
+}
+
+/* Backdrop hanya aktif ketika mobile menu benar-benar terbuka */
+.mobile-menu-backdrop.show {
+    display: block;
+}
+
+@media (max-width: 767px) {
+    .mobile-menu-backdrop {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background-color: rgba(0, 0, 0, 0.3);
+        /* Pastikan backdrop tidak selalu aktif di mobile */
+        display: none;
+    }
+
+    .mobile-menu-backdrop.show {
+        display: block;
+    }
+}
+
+/* Fix: Pastikan backdrop tidak mengganggu ketika menu tertutup */
+.mobile-menu-backdrop:not(.show) {
+    display: none !important;
+    pointer-events: none !important;
+}
+
+/* SIMPLE FIX - Remove blocking overlays only */
+
+/* Hide stuck backdrops */
+.mobile-menu-backdrop:not([x-show]) {
+    display: none !important;
+}
+
+/* Only show backdrop when Alpine.js x-show is true */
+[x-show="false"] .mobile-menu-backdrop,
+.mobile-menu-backdrop[style*="display: none"] {
+    display: none !important;
+}
+
+/* Ensure main content is clickable */
+main {
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
+}
+
+main * {
+    pointer-events: auto;
+}
+
+/* Reset body overflow */
+body {
+    overflow: auto;
+}
+
+/* Navbar brand hover effect */
+.navbar-brand {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+
+.navbar-brand:active {
+    transform: scale(0.98);
+}
+
+/* Menu item active indicator animation */
+.nav-indicator {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateX(-50%) scale(0);
+}
+
+.nav-indicator.active {
+    transform: translateX(-50%) scale(1);
+}
+
+/* Improved z-index management */
+.navbar-container {
+    z-index: 50;
+}
+
+.mobile-menu-container {
+    z-index: 51;
+}
+
+.mobile-menu-backdrop {
+    z-index: 40;
 }
 
 /* Custom gradient text */
@@ -251,11 +819,6 @@ html {
 @keyframes loading {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
-}
-
-/* About page specific styles */
-.animate-blob {
-    animation: blob 7s infinite;
 }
 
 /* About page prose styling */
@@ -600,22 +1163,6 @@ html {
     box-shadow: 0 15px 30px -5px rgba(102, 126, 234, 0.4);
 }
 
-/* Loading Animation */
-@keyframes shimmer {
-    0% {
-        background-position: -200px 0;
-    }
-    100% {
-        background-position: calc(200px + 100%) 0;
-    }
-}
-
-.loading-shimmer {
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200px 100%;
-    animation: shimmer 1.5s infinite;
-}
-
 /* Enhanced Hover States */
 .hover-lift {
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -816,7 +1363,7 @@ html {
 }
 
 /* Text Gradients */
-.text-gradient {
+.text-gradient-alt {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -826,4 +1373,93 @@ html {
 /* Scroll Reveal Animation */
 .slide-in-up {
     animation: slideInUp 0.6s ease-out forwards;
+}
+
+/* Additional responsive utilities for navbar */
+.navbar-responsive {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.navbar-responsive.scrolled {
+    transform: translateY(0);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Improved mobile tap targets */
+@media (max-width: 1279px) {
+    .mobile-tap-target {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Better visual hierarchy for mobile menu */
+.mobile-menu-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.mobile-menu-item:last-child {
+    border-bottom: none;
+}
+
+/* Smooth transitions for all interactive elements */
+.interactive-element {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-element:hover {
+    transform: translateY(-1px);
+}
+
+.interactive-element:active {
+    transform: translateY(0);
+}
+
+/* Enhanced focus indicators */
+.focus-ring:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px #3B82F6;
+}
+
+/* Utility classes for spacing and layout */
+.safe-area-inset-top {
+    padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-inset-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-inset-left {
+    padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-inset-right {
+    padding-right: env(safe-area-inset-right);
+}
+
+/* Performance optimizations */
+.will-change-transform {
+    will-change: transform;
+}
+
+.will-change-auto {
+    will-change: auto;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .crisp-edges {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
 }
