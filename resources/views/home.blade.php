@@ -13,7 +13,7 @@
 @endif
 
 @if($testimonials->count() > 0)
-    @include('partials.home.testimonials', ['testimonials' => $testimonials])
+    @include('partials.home.client', ['testimonials' => $testimonials])
 @endif
 
 @include('partials.shared.cta-section')
