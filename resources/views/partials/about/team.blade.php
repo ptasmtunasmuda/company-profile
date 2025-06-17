@@ -30,7 +30,7 @@
                     [
                         'name' => 'Ahmad Fauzi',
                         'position' => 'Lead Developer',
-                        'description' => 'Spesialis pengembangan full-stack dengan pengalaman 8+ tahun di Laravel, React, dan Vue.js. Ahli dalam arsitektur aplikasi skala enterprise.',
+                        'description' => 'Arsitek teknologi berpengalaman 8+ tahun yang mengkhususkan diri dalam pengembangan aplikasi full-stack. Memimpin tim dengan keahlian mendalam di Laravel, React, dan Vue.js untuk menciptakan solusi enterprise yang scalable dan robust.',
                         'skills' => ['Laravel', 'React', 'Vue.js', 'Node.js'],
                         'image' => 'team-1.jpg',
                         'skillsColor' => 'from-primary-100 to-purple-100 text-primary-700 border-primary-200',
@@ -40,10 +40,10 @@
                         'delay' => 100
                     ],
                     [
-                        'name' => 'Sarah Putri',
-                        'position' => 'UI/UX Designer',
-                        'description' => 'Menciptakan pengalaman pengguna yang intuitif dan menarik dengan fokus pada conversion optimization dan accessibility untuk semua pengguna.',
-                        'skills' => ['Figma', 'Adobe XD', 'Sketch', 'Prototyping'],
+                        'name' => 'Prasetyo Ari Wibowo',
+                        'position' => 'Full Stack Developer',
+                        'description' => 'Developer serbaguna yang menguasai teknologi frontend dan backend. Berpengalaman dalam membangun aplikasi web modern dengan performa tinggi dan antarmuka yang responsif untuk berbagai platform.',
+                        'skills' => ['Laravel', 'NextJS', 'Flutter', 'Java', 'Firebase', 'MysQL', 'PostgreSQL'],
                         'image' => 'team-2.jpg',
                         'skillsColor' => 'from-pink-100 to-purple-100 text-pink-700 border-pink-200',
                         'avatarColor' => 'from-pink-400 to-purple-600',
@@ -53,9 +53,9 @@
                     ],
                     [
                         'name' => 'Budi Santoso',
-                        'position' => 'Mobile Developer',
-                        'description' => 'Ahli pengembangan aplikasi mobile cross-platform menggunakan React Native dan Flutter. Berpengalaman dalam optimasi performa aplikasi mobile.',
-                        'skills' => ['React Native', 'Flutter', 'Swift', 'Kotlin'],
+                        'position' => 'Frontend Developer',
+                        'description' => 'Spesialis frontend yang passionate dalam menciptakan pengalaman pengguna yang luar biasa. Fokus pada pengembangan antarmuka yang intuitif, responsif, dan memiliki performa optimal di berbagai perangkat dan browser.',
+                        'skills' => ['HTML5', 'CSS3', 'JavaScript', 'Bootstrap'],
                         'image' => 'team-3.jpg',
                         'skillsColor' => 'from-green-100 to-emerald-100 text-green-700 border-green-200',
                         'avatarColor' => 'from-green-400 to-emerald-600',

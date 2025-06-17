@@ -13,7 +13,6 @@
                             <span class="text-white font-bold text-sm">{{ substr(config('app.name'), 0, 1) }}</span>
                         </div>
                     @endif
-                    <span class="ml-2 text-xl font-bold">{{ \App\Models\Setting::get('site_name', config('app.name')) }}</span>
                 </div>
                 <p class="text-gray-300 mb-4">
                     {{ \App\Models\Setting::get('site_description', 'We create modern websites and mobile applications that help your business grow.') }}

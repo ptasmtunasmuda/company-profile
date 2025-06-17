@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Str;
+@endphp
+
 <section class="py-24 bg-white relative overflow-hidden">
     @include('partials.shared.background-patterns')
 
@@ -27,7 +31,8 @@
             @php
                 $featuredServices = [
                     [
-                        'title' => 'Web Development',
+                        'title' => 'Website Development',
+                        'slug' => 'website-development',
                         'description' => 'Pengembangan website modern dan responsif dengan teknologi terkini seperti Laravel, React, dan Vue.js untuk performa optimal.',
                         'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
                         'color' => 'from-blue-500 to-blue-700',
@@ -35,19 +40,21 @@
                         'delay' => 100
                     ],
                     [
-                        'title' => 'Mobile App Development',
+                        'title' => 'Mobile Application',
+                        'slug' => 'mobile-application',
                         'description' => 'Aplikasi mobile iOS dan Android dengan performa tinggi menggunakan React Native dan Flutter untuk jangkauan maksimal.',
                         'icon' => 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z',
-                        'color' => 'from-green-500 to-green-700',
-                        'borderColor' => 'from-green-400 via-emerald-500 to-teal-500',
+                        'color' => 'from-purple-500 to-purple-700',
+                        'borderColor' => 'from-purple-400 via-pink-500 to-red-500',
                         'delay' => 200
                     ],
                     [
                         'title' => 'UI/UX Design',
+                        'slug' => 'ui-ux-design',
                         'description' => 'Desain antarmuka yang menarik dan pengalaman pengguna yang optimal untuk meningkatkan konversi dan kepuasan user.',
                         'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z',
-                        'color' => 'from-purple-500 to-purple-700',
-                        'borderColor' => 'from-purple-400 via-pink-500 to-red-500',
+                        'color' => 'from-green-500 to-green-700',
+                        'borderColor' => 'from-green-400 via-emerald-500 to-teal-500',
                         'delay' => 300
                     ]
                 ];
@@ -80,7 +87,7 @@
                             </p>
 
                             <!-- CTA Button -->
-                            <a href="{{ route('contact') }}" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors duration-300 group/link">
+                            <a href="{{ route('services.show', ['slug' => $service['slug']]) }}" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors duration-300 group/link">
                                 <span>Pelajari Lebih Lanjut</span>
                                 <svg class="w-5 h-5 ml-2 transform group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>

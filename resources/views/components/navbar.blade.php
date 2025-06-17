@@ -28,10 +28,6 @@ x-init="init()"
                                     <span class="text-white font-bold text-xs md:text-sm">{{ substr(config('app.name'), 0, 1) }}</span>
                                 </div>
                             @endif
-                            <!-- App name - responsive visibility -->
-                            <span class="hidden sm:block ml-2 md:ml-3 text-lg md:text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-primary-600 truncate max-w-32 md:max-w-none">
-                                {{ \App\Models\Setting::get('site_name', config('app.name')) }}
-                            </span>
                         </a>
                     </div>
 

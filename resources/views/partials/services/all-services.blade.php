@@ -1,3 +1,7 @@
+@php
+use Illuminate\Support\Str;
+@endphp
+
 <section class="py-24 bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 relative overflow-hidden">
     @include('partials.shared.background-blobs')
 
@@ -44,46 +48,51 @@
                 $allServices = [
                     [
                         'title' => 'Website Development',
+                        'slug' => 'website-development',
                         'description' => 'Pengembangan website responsif dengan teknologi modern dan performa optimal untuk semua perangkat.',
                         'icon' => 'M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
                         'category' => 'development',
-                        'price' => 'Mulai 5jt',
+                        'price' => 'Mulai 3jt',
                         'features' => ['Responsive Design', 'SEO Optimized', 'Fast Loading', 'Mobile Friendly'],
                         'color' => 'from-blue-500 to-blue-700',
                         'borderColor' => 'from-blue-400 via-blue-500 to-blue-600'
                     ],
                     [
                         'title' => 'E-Commerce Platform',
+                        'slug' => 'ecommerce-platform',
                         'description' => 'Toko online lengkap dengan sistem pembayaran terintegrasi dan manajemen inventory yang canggih.',
                         'icon' => 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z',
                         'category' => 'development',
-                        'price' => 'Mulai 10jt',
+                        'price' => 'Mulai 9jt',
                         'features' => ['Payment Gateway', 'Inventory Management', 'Analytics', 'Multi-vendor'],
                         'color' => 'from-green-500 to-green-700',
                         'borderColor' => 'from-green-400 via-emerald-500 to-teal-500'
                     ],
                     [
                         'title' => 'Mobile Application',
+                        'slug' => 'mobile-application',
                         'description' => 'Aplikasi mobile iOS dan Android dengan teknologi cross-platform untuk reach yang maksimal.',
                         'icon' => 'M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z',
                         'category' => 'development',
-                        'price' => 'Mulai 15jt',
+                        'price' => 'Mulai 13jt',
                         'features' => ['Cross Platform', 'Push Notifications', 'Offline Support', 'App Store Ready'],
                         'color' => 'from-purple-500 to-purple-700',
                         'borderColor' => 'from-purple-400 via-pink-500 to-red-500'
                     ],
                     [
                         'title' => 'UI/UX Design',
+                        'slug' => 'ui-ux-design',
                         'description' => 'Desain antarmuka yang menarik dan user-friendly dengan fokus pada user experience optimal.',
                         'icon' => 'M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z',
                         'category' => 'design',
-                        'price' => 'Mulai 3jt',
+                        'price' => 'Mulai 4jt',
                         'features' => ['User Research', 'Prototyping', 'Usability Testing', 'Design System'],
                         'color' => 'from-pink-500 to-pink-700',
                         'borderColor' => 'from-pink-400 via-rose-500 to-red-500'
                     ],
                     [
                         'title' => 'Brand Identity',
+                        'slug' => 'brand-identity',
                         'description' => 'Pembuatan logo dan identitas visual brand yang memorable dan profesional.',
                         'icon' => 'M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z',
                         'category' => 'design',
@@ -94,10 +103,11 @@
                     ],
                     [
                         'title' => 'Digital Marketing',
+                        'slug' => 'digital-marketing',
                         'description' => 'Strategi pemasaran digital komprehensif untuk meningkatkan brand awareness dan penjualan.',
                         'icon' => 'M13 7h8m0 0v8m0-8l-8 8-4-4-6 6',
                         'category' => 'marketing',
-                        'price' => 'Mulai 2jt/bulan',
+                        'price' => 'Mulai 3jt/bulan',
                         'features' => ['Social Media', 'Google Ads', 'Content Marketing', 'Analytics'],
                         'color' => 'from-red-500 to-red-700',
                         'borderColor' => 'from-red-400 via-pink-500 to-purple-500'
@@ -150,8 +160,8 @@
                             <!-- Price and CTA -->
                             <div class="flex items-center justify-between pt-4 border-t border-gray-100">
                                 <span class="text-primary-600 font-bold text-sm">{{ $service['price'] }}</span>
-                                <a href="{{ route('contact') }}" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors duration-300 text-xs group/link">
-                                    <span>Pesan</span>
+                                <a href="{{ route('services.show', $service['slug']) }}" class="inline-flex items-center text-primary-600 font-semibold hover:text-primary-700 transition-colors duration-300 text-xs group/link">
+                                    <span>Pelajari</span>
                                     <svg class="w-3 h-3 ml-1 transform group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
                                     </svg>
