@@ -7,11 +7,11 @@
     <!-- Header -->
     <div class="flex justify-between items-center">
         <div>
-            <h1 class="text-2xl font-semibold text-gray-900">Create New Testimonial</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Create New Testimonial</h1>
             <p class="mt-1 text-sm text-gray-600">Add a new client testimonial</p>
         </div>
-        <a href="{{ route('admin.testimonials.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <a href="{{ route('admin.testimonials.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg font-medium admin-transition">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
             </svg>
             Back to Testimonials
@@ -19,8 +19,8 @@
     </div>
 
     <!-- Form -->
-    <div class="bg-white shadow rounded-lg">
-        <form action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6 p-6">
+    <div class="admin-card">
+        <form action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6" data-validate>
             @csrf
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -29,7 +29,7 @@
                     <div>
                         <label for="client_name" class="block text-sm font-medium text-gray-700 mb-2">Client Name *</label>
                         <input type="text" id="client_name" name="client_name" value="{{ old('client_name') }}" required
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('client_name') border-red-500 @enderror">
+                               class="admin-input @error('client_name') border-red-500 @enderror">
                         @error('client_name')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -39,7 +39,7 @@
                         <label for="client_position" class="block text-sm font-medium text-gray-700 mb-2">Client Position</label>
                         <input type="text" id="client_position" name="client_position" value="{{ old('client_position') }}"
                                placeholder="e.g., CEO, Marketing Director"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('client_position') border-red-500 @enderror">
+                               class="admin-input @error('client_position') border-red-500 @enderror">
                         @error('client_position')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -49,7 +49,7 @@
                         <label for="client_company" class="block text-sm font-medium text-gray-700 mb-2">Client Company</label>
                         <input type="text" id="client_company" name="client_company" value="{{ old('client_company') }}"
                                placeholder="e.g., Tech Startup Inc."
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('client_company') border-red-500 @enderror">
+                               class="admin-input @error('client_company') border-red-500 @enderror">
                         @error('client_company')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -58,7 +58,7 @@
                     <div>
                         <label for="rating" class="block text-sm font-medium text-gray-700 mb-2">Rating *</label>
                         <select id="rating" name="rating" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('rating') border-red-500 @enderror">
+                                class="admin-input @error('rating') border-red-500 @enderror">
                             <option value="">Select Rating</option>
                             @for($i = 5; $i >= 1; $i--)
                                 <option value="{{ $i }}" {{ old('rating') == $i ? 'selected' : '' }}>
@@ -75,7 +75,7 @@
                         <label for="sort_order" class="block text-sm font-medium text-gray-700 mb-2">Sort Order</label>
                         <input type="number" id="sort_order" name="sort_order" value="{{ old('sort_order', 0) }}"
                                min="0" step="1"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('sort_order') border-red-500 @enderror">
+                               class="admin-input @error('sort_order') border-red-500 @enderror">
                         <p class="mt-1 text-sm text-gray-500">Lower numbers appear first</p>
                         @error('sort_order')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -88,7 +88,7 @@
                     <div>
                         <label for="avatar" class="block text-sm font-medium text-gray-700 mb-2">Client Avatar</label>
                         <input type="file" id="avatar" name="avatar" accept="image/*"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('avatar') border-red-500 @enderror">
+                               class="admin-input @error('avatar') border-red-500 @enderror">
                         <p class="mt-1 text-sm text-gray-500">Recommended size: 200x200px (square)</p>
                         @error('avatar')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -97,7 +97,7 @@
 
                     <div class="flex items-center">
                         <input type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }}
-                               class="h-4 w-4 text-primary-600 border-gray-300 rounded focus:ring-primary-500">
+                               class="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                         <label for="is_active" class="ml-2 block text-sm text-gray-900">Active (visible on website)</label>
                     </div>
 
@@ -120,7 +120,7 @@
                 <label for="testimonial" class="block text-sm font-medium text-gray-700 mb-2">Testimonial *</label>
                 <textarea id="testimonial" name="testimonial" rows="6" required
                           placeholder="Enter the client's testimonial here..."
-                          class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 @error('testimonial') border-red-500 @enderror">{{ old('testimonial') }}</textarea>
+                          class="admin-input @error('testimonial') border-red-500 @enderror">{{ old('testimonial') }}</textarea>
                 <p class="mt-1 text-sm text-gray-500">Maximum 1000 characters</p>
                 @error('testimonial')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -129,10 +129,10 @@
 
             <!-- Submit Buttons -->
             <div class="flex justify-end space-x-4 pt-6 border-t border-gray-200">
-                <a href="{{ route('admin.testimonials.index') }}" class="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                <a href="{{ route('admin.testimonials.index') }}" class="px-6 py-2 admin-btn-secondary">
                     Cancel
                 </a>
-                <button type="submit" class="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors">
+                <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 admin-transition">
                     Create Testimonial
                 </button>
             </div>
