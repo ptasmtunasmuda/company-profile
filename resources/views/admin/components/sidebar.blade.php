@@ -1,16 +1,29 @@
-<div class="admin-sidebar flex-shrink-0 relative">
+<div class="admin-sidebar flex-shrink-0 relative"
+     x-data="{ mobileOpen: false }"
+     x-on:toggle-sidebar.window="mobileOpen = !mobileOpen"
+     :class="{ 'mobile-open': mobileOpen }">
     <!-- Header -->
     <div class="p-8 border-b border-gray-200">
-        <div class="flex items-center justify-center">
-            @if(\App\Models\Setting::get('site_logo'))
-                <img class="h-12 w-auto"
-                     src="{{ \App\Models\Setting::get('site_logo') }}"
-                     alt="{{ config('app.name') }}">
-            @else
-                <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
-                    <span class="text-white font-bold text-xl">{{ substr(config('app.name'), 0, 1) }}</span>
-                </div>
-            @endif
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-center flex-1">
+                @if(\App\Models\Setting::get('site_logo'))
+                    <img class="h-12 w-auto"
+                         src="{{ \App\Models\Setting::get('site_logo') }}"
+                         alt="{{ config('app.name') }}">
+                @else
+                    <div class="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">{{ substr(config('app.name'), 0, 1) }}</span>
+                    </div>
+                @endif
+            </div>
+
+            <!-- Mobile Close Button -->
+            <button @click="mobileOpen = false"
+                    class="md:hidden p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg admin-transition">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
         </div>
     </div>
 

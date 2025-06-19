@@ -18,7 +18,20 @@
     @stack('styles')
 </head>
 <body class="font-sans antialiased admin-body">
-    <div class="min-h-screen">
+    <div class="min-h-screen" x-data="{ sidebarOpen: false }">
+        <!-- Mobile Overlay -->
+        <div x-show="sidebarOpen"
+             x-on:toggle-sidebar.window="sidebarOpen = !sidebarOpen"
+             x-transition:enter="transition-opacity ease-linear duration-300"
+             x-transition:enter-start="opacity-0"
+             x-transition:enter-end="opacity-100"
+             x-transition:leave="transition-opacity ease-linear duration-300"
+             x-transition:leave-start="opacity-100"
+             x-transition:leave-end="opacity-0"
+             @click="sidebarOpen = false; $dispatch('toggle-sidebar')"
+             class="fixed inset-0 bg-gray-600 bg-opacity-75 z-20 md:hidden"
+             style="display: none;"></div>
+
         <!-- Sidebar -->
         @include('admin.components.sidebar')
 

@@ -414,14 +414,35 @@ body.admin-body {
     padding-left: 0;
 }
 
+/* Mobile Overlay */
+.mobile-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 40;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Mobile Sidebar Animations */
+@media (max-width: 768px) {
+    .admin-sidebar {
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .admin-sidebar.mobile-open {
+        box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+}
+
 /* Admin Mobile Responsive */
 @media (max-width: 768px) {
     .admin-sidebar {
-        width: 240px;
-        min-width: 240px;
+        width: 280px;
+        min-width: 280px;
         padding: 1rem;
         transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 50;
     }
 
     .admin-sidebar.mobile-open {
@@ -437,28 +458,44 @@ body.admin-body {
         height: 70px;
         min-height: 70px;
         margin-left: 0;
+        padding: 0 1rem;
     }
 
     .admin-card {
-        padding: 1rem;
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .admin-table {
+        font-size: 0.875rem;
     }
 
     .admin-table th,
     .admin-table td {
-        padding: 0.75rem;
+        padding: 0.75rem 0.5rem;
         font-size: 0.8rem;
     }
 
     .admin-nav-item {
-        padding: 0.75rem 1rem;
+        padding: 0.875rem 1rem;
         margin: 0.25rem 0;
+        font-size: 0.9rem;
     }
 
     .admin-btn-primary,
     .admin-btn-secondary,
     .admin-btn-danger {
-        padding: 0.5rem 1rem;
+        padding: 0.75rem 1rem;
         font-size: 0.875rem;
+    }
+
+    /* Mobile specific utilities */
+    .mobile-hidden {
+        display: none;
+    }
+
+    .mobile-full-width {
+        width: 100%;
     }
 }
 

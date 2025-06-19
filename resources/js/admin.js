@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     });
 
+    // Mobile sidebar functionality
+    initMobileSidebar();
+
     // Confirm delete actions
     const deleteButtons = document.querySelectorAll('[data-confirm-delete]');
     deleteButtons.forEach(button => {
@@ -65,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Table row selection
     const selectAllCheckbox = document.querySelector('#select-all');
     const rowCheckboxes = document.querySelectorAll('.row-checkbox');
-    
+
     if (selectAllCheckbox) {
         selectAllCheckbox.addEventListener('change', function() {
             rowCheckboxes.forEach(checkbox => {
@@ -78,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     rowCheckboxes.forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             updateBulkActions();
-            
+
             // Update select all checkbox
             if (selectAllCheckbox) {
                 const checkedCount = document.querySelectorAll('.row-checkbox:checked').length;
@@ -91,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function updateBulkActions() {
         const checkedCount = document.querySelectorAll('.row-checkbox:checked').length;
         const bulkActions = document.querySelector('.bulk-actions');
-        
+
         if (bulkActions) {
             if (checkedCount > 0) {
                 bulkActions.classList.remove('hidden');
@@ -109,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const file = e.target.files[0];
             const previewId = this.getAttribute('data-preview');
             const preview = document.getElementById(previewId);
-            
+
             if (file && preview) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
@@ -129,12 +132,12 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentUrl = new URL(window.location);
             const currentSort = currentUrl.searchParams.get('sort');
             const currentDirection = currentUrl.searchParams.get('direction');
-            
+
             let newDirection = 'asc';
             if (currentSort === column && currentDirection === 'asc') {
                 newDirection = 'desc';
             }
-            
+
             currentUrl.searchParams.set('sort', column);
             currentUrl.searchParams.set('direction', newDirection);
             window.location.href = currentUrl.toString();
@@ -150,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             searchTimeout = setTimeout(() => {
                 const searchTerm = this.value.toLowerCase();
                 const searchableRows = document.querySelectorAll('[data-searchable]');
-                
+
                 searchableRows.forEach(row => {
                     const text = row.textContent.toLowerCase();
                     if (text.includes(searchTerm)) {
@@ -167,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function() {
     window.showNotification = function(message, type = 'info') {
         const notification = document.createElement('div');
         notification.className = `fixed top-4 right-4 z-50 max-w-sm admin-card border-l-4 ${getNotificationClasses(type)} transform translate-x-full transition-transform duration-300`;
-        
+
         notification.innerHTML = `
             <div class="flex items-center p-4">
                 <div class="flex-shrink-0">
@@ -183,14 +186,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 </button>
             </div>
         `;
-        
+
         document.body.appendChild(notification);
-        
+
         // Animate in
         setTimeout(() => {
             notification.classList.remove('translate-x-full');
         }, 100);
-        
+
         // Auto remove after 5 seconds
         setTimeout(() => {
             notification.classList.add('translate-x-full');
@@ -227,3 +230,45 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 });
+
+// Mobile Sidebar Toggle Functions
+function initMobileSidebar() {
+    // Handle escape key to close sidebar
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && window.innerWidth <= 768) {
+            const sidebar = document.querySelector('.admin-sidebar');
+            if (sidebar && sidebar.classList.contains('mobile-open')) {
+                sidebar.classList.remove('mobile-open');
+                // Dispatch event to sync with Alpine.js
+                window.dispatchEvent(new CustomEvent('toggle-sidebar'));
+            }
+        }
+    });
+
+    // Handle window resize
+    window.addEventListener('resize', function() {
+        const sidebar = document.querySelector('.admin-sidebar');
+        if (window.innerWidth > 768 && sidebar) {
+            sidebar.classList.remove('mobile-open');
+        }
+    });
+
+    // Prevent body scroll when sidebar is open on mobile
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                const sidebar = mutation.target;
+                if (sidebar.classList.contains('mobile-open') && window.innerWidth <= 768) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+    });
+
+    const sidebar = document.querySelector('.admin-sidebar');
+    if (sidebar) {
+        observer.observe(sidebar, { attributes: true });
+    }
+}

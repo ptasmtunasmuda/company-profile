@@ -1,8 +1,16 @@
 <header class="admin-navbar">
     <div class="flex items-center justify-between px-6 py-4">
         <div class="flex items-center">
-            <h1 class="text-2xl font-bold text-gray-900">@yield('title', 'Dashboard')</h1>
-            <div class="ml-4 admin-badge-info">
+            <!-- Mobile Menu Button -->
+            <button @click="$dispatch('toggle-sidebar')"
+                    class="md:hidden mr-4 p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg admin-transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
+
+            <h1 class="text-xl md:text-2xl font-bold text-gray-900">@yield('title', 'Dashboard')</h1>
+            <div class="ml-4 admin-badge-info hidden sm:flex">
                 <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
@@ -10,15 +18,15 @@
             </div>
         </div>
 
-        <div class="flex items-center space-x-4">
+        <div class="flex items-center space-x-2 md:space-x-4">
             <!-- Quick Actions -->
-            <div class="hidden md:flex items-center space-x-2">
+            <div class="hidden lg:flex items-center space-x-2">
                 <a href="{{ route('home') }}" target="_blank"
-                   class="admin-btn-secondary">
+                   class="admin-btn-secondary text-sm">
                     <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                     </svg>
-                    View Site
+                    <span class="hidden xl:inline">View Site</span>
                 </a>
             </div>
 
@@ -96,15 +104,15 @@
             <!-- User Menu -->
             <div class="relative" x-data="{ open: false }">
                 <button @click="open = !open"
-                        class="flex items-center space-x-3 p-2 text-sm bg-white border border-gray-200 rounded-lg hover: admin-transition admin-focus">
+                        class="flex items-center space-x-2 md:space-x-3 p-2 text-sm bg-white border border-gray-200 rounded-lg hover:bg-gray-50 admin-transition admin-focus">
                     <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
                         <span class="text-sm font-bold text-white">{{ substr(auth()->user()->name, 0, 1) }}</span>
                     </div>
-                    <div class="hidden md:block text-left">
-                        <p class="text-sm font-semibold text-gray-900">{{ auth()->user()->name }}</p>
+                    <div class="hidden sm:block text-left">
+                        <p class="text-sm font-semibold text-gray-900 truncate max-w-24 md:max-w-none">{{ auth()->user()->name }}</p>
                         <p class="text-xs text-gray-500">Administrator</p>
                     </div>
-                    <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-gray-400 hidden sm:block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
