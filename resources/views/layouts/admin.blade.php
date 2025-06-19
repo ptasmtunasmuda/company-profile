@@ -18,17 +18,17 @@
     @stack('styles')
 </head>
 <body class="font-sans antialiased admin-body">
-    <div class="min-h-screen flex">
+    <div class="min-h-screen">
         <!-- Sidebar -->
         @include('admin.components.sidebar')
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col overflow-hidden">
+        <div class="flex flex-col overflow-hidden">
             <!-- Top Navigation -->
             @include('admin.components.navbar')
 
             <!-- Page Content -->
-            <main class="flex-1 overflow-x-hidden overflow-y-auto admin-main p-4 md:p-6">
+            <main class="flex-1 overflow-x-hidden overflow-y-auto admin-main p-6 md:p-8">
                 <!-- Breadcrumb -->
                 @if(isset($breadcrumbs))
                     @include('admin.components.breadcrumb')
