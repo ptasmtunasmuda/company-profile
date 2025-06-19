@@ -185,7 +185,7 @@
                         </svg>
                         Edit Portfolio
                     </a>
-                    
+
                     <a href="{{ route('portfolio.detail', $portfolio->slug) }}" target="_blank" class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-medium admin-transition text-center inline-block">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -199,14 +199,16 @@
 </div>
 
 <!-- Image Modal -->
-<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden flex items-center justify-center p-4">
-    <div class="relative max-w-4xl max-h-full">
-        <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
-        </button>
-        <img id="modalImage" src="" alt="" class="max-w-full max-h-full object-contain">
+<div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="relative max-w-4xl max-h-full">
+            <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white hover:text-gray-300 z-10">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <img id="modalImage" src="" alt="" class="max-w-full max-h-full object-contain">
+        </div>
     </div>
 </div>
 
@@ -215,12 +217,14 @@
 function openImageModal(src, alt) {
     document.getElementById('modalImage').src = src;
     document.getElementById('modalImage').alt = alt;
-    document.getElementById('imageModal').classList.remove('hidden');
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
 }
 
 function closeImageModal() {
-    document.getElementById('imageModal').classList.add('hidden');
+    const modal = document.getElementById('imageModal');
+    modal.classList.add('hidden');
     document.body.style.overflow = '';
 }
 
