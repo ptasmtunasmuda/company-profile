@@ -37,13 +37,18 @@ Route::get('/page/{slug}', [HomeController::class, 'page'])->name('page');
 
 require __DIR__.'/auth.php';
 
+// Redirect old dashboard route to admin
+Route::get('/dashboard', function () {
+    return redirect()->route('admin.dashboard');
+})->middleware('auth');
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
 |--------------------------------------------------------------------------
 */
 
-Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['admin'])->prefix('admin')->name('admin.')->group(function () {
 
     // Dashboard
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
