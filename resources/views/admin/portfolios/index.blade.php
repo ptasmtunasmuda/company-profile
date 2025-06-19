@@ -63,7 +63,7 @@
         </div>
         <div class="admin-stats-card">
             <div class="flex items-center">
-                <div class="w-12 h-12 0 rounded-lg flex items-center justify-center">
+                <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728L5.636 5.636m12.728 12.728L18.364 5.636M5.636 18.364l12.728-12.728"></path>
                     </svg>
@@ -83,7 +83,7 @@
         </div>
 
         @if($portfolios->count() > 0)
-            <div class="overflow-x-auto admin-scrollbar admin-scrollbar">
+            <div class="overflow-x-auto admin-scrollbar">
                 <table class="admin-table">
                     <thead>
                         <tr>
@@ -97,7 +97,7 @@
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
                         @foreach($portfolios as $portfolio)
-                            <tr class="hover:">
+                            <tr class="hover:bg-gray-50">
                                 <td>
                                     <div class="flex items-center">
                                         @if($portfolio->getFirstMediaUrl('featured_image'))
@@ -115,7 +115,7 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td class=" text-sm text-gray-900">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                     {{ $portfolio->client_name ?: '-' }}
                                 </td>
                                 <td>
@@ -125,7 +125,7 @@
                                                 <span class="admin-badge-info">{{ $tech }}</span>
                                             @endforeach
                                             @if(count($portfolio->technologies) > 2)
-                                                <span class="admin-badge-info admin-badge-info bg-gray-100 text-gray-800">+{{ count($portfolio->technologies) - 2 }}</span>
+                                                <span class="admin-badge-info bg-gray-100 text-gray-800">+{{ count($portfolio->technologies) - 2 }}</span>
                                             @endif
                                         </div>
                                     @else
@@ -144,10 +144,10 @@
                                         @endif
                                     </div>
                                 </td>
-                                <td class=" text-sm text-gray-500">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                     {{ $portfolio->created_at->format('M d, Y') }}
                                 </td>
-                                <td class=" text-sm font-medium">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex items-center space-x-2">
                                         <a href="{{ route('admin.portfolios.show', $portfolio) }}" class="text-gray-600 hover:text-gray-900">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -165,7 +165,7 @@
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                                             </svg>
                                         </a>
-                                        <form action="{{ route('admin.portfolios.destroy', $portfolio) }}" method="POST" class="inline" data-confirm-delete="Are you sure you want to delete this portfolio?"">
+                                        <form action="{{ route('admin.portfolios.destroy', $portfolio) }}" method="POST" class="inline" data-confirm-delete="Are you sure you want to delete this portfolio?">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-red-600 hover:text-red-900">
@@ -183,7 +183,7 @@
             </div>
 
             <!-- Pagination -->
-            <div class=" border-t border-gray-200">
+            <div class="px-6 py-4 border-t border-gray-200">
                 {{ $portfolios->links() }}
             </div>
         @else
