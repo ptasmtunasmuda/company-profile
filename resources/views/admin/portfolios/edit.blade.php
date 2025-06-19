@@ -214,13 +214,9 @@
 
             <!-- Submit Buttons -->
             <div class="flex justify-between pt-6 border-t border-gray-200">
-                <form action="{{ route('admin.portfolios.destroy', $portfolio) }}" method="POST" class="inline" data-confirm-delete="Are you sure you want to delete this portfolio? This action cannot be undone.')">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 admin-transition">
-                        Delete Portfolio
-                    </button>
-                </form>
+                <div>
+                    <!-- Delete button will be outside form -->
+                </div>
 
                 <div class="flex space-x-4">
                     <a href="{{ route('admin.portfolios.index') }}" class="px-6 py-2 admin-btn-secondary">
@@ -232,6 +228,25 @@
                 </div>
             </div>
         </form>
+
+        <!-- Delete Form - Separate from update form -->
+        <div class="admin-card mt-6">
+            <div class="border-t border-red-200 pt-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-lg font-medium text-red-900">Danger Zone</h3>
+                        <p class="text-sm text-red-600">Once you delete this portfolio, there is no going back. Please be certain.</p>
+                    </div>
+                    <form action="{{ route('admin.portfolios.destroy', $portfolio) }}" method="POST" class="inline" data-confirm-delete="Are you sure you want to delete this portfolio? This action cannot be undone.">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 admin-transition">
+                            Delete Portfolio
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
     </div>
 
