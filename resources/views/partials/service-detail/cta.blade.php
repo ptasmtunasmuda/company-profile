@@ -66,7 +66,7 @@
                     </div>
                     <h4 class="font-bold text-white mb-2">Email Kami</h4>
                     <p class="text-blue-100 group-hover:text-white transition-colors duration-300">
-                        {{ $contactSettings['contact_email'] ?? 'hello@yourcompany.com' }}
+                        {{ $contactSettings['contact_email'] ?? 'info@asmtunasmuda.com' }}
                     </p>
                 </div>
 
@@ -79,7 +79,7 @@
                     </div>
                     <h4 class="font-bold text-white mb-2">Telepon</h4>
                     <p class="text-blue-100 group-hover:text-white transition-colors duration-300">
-                        {{ $contactSettings['contact_phone'] ?? '+62 812-3456-7890' }}
+                        {{ $contactSettings['contact_phone'] ?? '+62 812-6801-8693' }}
                     </p>
                 </div>
 

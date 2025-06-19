@@ -23,8 +23,8 @@ class SettingSeeder extends Seeder
 
             // Contact Information
             ['key' => 'contact_email', 'value' => 'info@company.com', 'type' => 'email', 'group' => 'contact'],
-            ['key' => 'contact_phone', 'value' => '+62 812-3456-7890', 'type' => 'text', 'group' => 'contact'],
-            ['key' => 'contact_whatsapp', 'value' => '+62 812-3456-7890', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'contact_phone', 'value' => '+62 812-6801-8693', 'type' => 'text', 'group' => 'contact'],
+            ['key' => 'contact_whatsapp', 'value' => '+62 812-6801-8693', 'type' => 'text', 'group' => 'contact'],
             ['key' => 'contact_address', 'value' => 'Jl. Contoh No. 123, Kediri, Jawa Timur', 'type' => 'textarea', 'group' => 'contact'],
             ['key' => 'office_hours', 'value' => 'Senin - Jumat: 09:00 - 17:00 WIB', 'type' => 'text', 'group' => 'contact'],
 
